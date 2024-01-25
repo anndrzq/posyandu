@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
+            $table->enum('role', ['mother', 'father', 'midwife', 'employee', 'admin']);
+            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
