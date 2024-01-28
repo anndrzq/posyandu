@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('families', function (Blueprint $table) {
             $table->id();
             $table->string('nik')->unique();
-            $table->string('mother_name')->unique();
+            $table->string('mother_name');
             $table->date('date_of_birth_mom');
             $table->string('place_of_birth_mom');
             $table->enum('blood_type_mom', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O']);
-            $table->string('father_name')->unique();
+            $table->string('father_name');
             $table->date('date_of_birth_father');
             $table->string('place_of_birth_father');
             $table->enum('blood_type_father', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O']);

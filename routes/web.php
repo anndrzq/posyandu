@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dashboard\MotherController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
-use App\Http\Resources\dashboard\ParentController;
+use App\Http\Controllers\dashboard\ParentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +24,5 @@ Route::controller(LoginController::class)->middleware('guest')->group(function (
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('guest');
 
-// Data Keluarga
+// Data Master
+Route::resource('parent-data', ParentController::class)->middleware('guest');
