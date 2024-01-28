@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboard\MotherController;
+use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
+use App\Http\Resources\dashboard\ParentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,12 @@ use App\Http\Controllers\authentications\LoginController;
 |
 */
 
+// Login
 Route::controller(LoginController::class)->middleware('guest')->group(function () {
     Route::get('/', 'index')->name('login');
 });
+
+// Dashboard
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('guest');
+
+// Data Keluarga
