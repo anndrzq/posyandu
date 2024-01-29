@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('place_of_birth_father');
             $table->enum('blood_type_father', ['A', 'B', 'AB', 'O']);
             $table->integer('many_kids');
-            $table->date('child_date_of_birth');
             $table->string('address');
             $table->string('city');
             $table->string('subdistrict');
+            $table->string('ward');
+            $table->string('postal_code');
             $table->string('phone_number')->unique();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@
 
 @push('style')
     <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
@@ -70,14 +71,57 @@
                                             <input id="date_of_birth_father" type="text" class="form-control datepicker"
                                                 name="date_of_birth_father">
                                         </div>
-                                        {{-- <div class="form-group col-6">
-                                            <label for="blood_type_mom">jQuery Selectric</label>
-                                            <select class="form-control selectric">
-                                                @foreach ($parents as $parent)
-                                                    <option>{{ $parent->blood_type_mom }}</option>
-                                                @endforeach
+                                        <div class="form-group col-6">
+                                            <label for="blood_type_mom">Golongan Darah Ibu</label>
+                                            <select name="blood_type_mom" id="blood_type_mom"
+                                                class="form-control selectric">
+                                                <option value="" selected disabled>-- Pilih Golongan Darah Ibu --
+                                                </option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="AB">AB</option>
+                                                <option value="O">O</option>
                                             </select>
-                                        </div> --}}
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="blood_type_father">Golongan Darah Ayah</label>
+                                            <select name="blood_type_father" id="blood_type_father"
+                                                class="form-control selectric">
+                                                <option value="" selected disabled>-- Pilih Golongan Darah Ayah --
+                                                </option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="AB">AB</option>
+                                                <option value="O">O</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="address">Alamat</label>
+                                            <input id="address" type="text" class="form-control" name="address">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="city">Kota</label>
+                                            <input id="city" type="text" class="form-control" name="city">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="subdistrict">Kecamatan</label>
+                                            <input id="subdistrict" type="text" class="form-control"
+                                                name="subdistrict">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="ward">Kelurahan</label>
+                                            <input id="ward" type="text" class="form-control" name="ward">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="postal_code">Kode Post</label>
+                                            <input id="postal_code" type="number" class="form-control"
+                                                name="postal_code">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="phone_number">Nomer Telefon (AKTIF)</label>
+                                            <input id="phone_number" type="number" class="form-control"
+                                                name="phone_number">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
@@ -98,6 +142,7 @@
     <script src="{{ asset('node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
 @endpush
