@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('mother_name');
             $table->date('date_of_birth_mom');
             $table->string('place_of_birth_mom');
-            $table->enum('blood_type_mom', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O']);
+            $table->enum('blood_type_mom', ['A', 'B', 'AB', 'O']);
             $table->string('father_name');
             $table->date('date_of_birth_father');
             $table->string('place_of_birth_father');
-            $table->enum('blood_type_father', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O']);
+            $table->enum('blood_type_father', ['A', 'B', 'AB', 'O']);
             $table->integer('many_kids');
             $table->date('child_date_of_birth');
             $table->string('address');

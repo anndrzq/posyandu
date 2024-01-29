@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="text-left">Basic DataTables</h4>
-                                <a href="" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i>
+                                <a href="/parent-data/create" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i>
                                     Tambah Keluarga</a>
                             </div>
                             <div class="card-body">

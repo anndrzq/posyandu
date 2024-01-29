@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Models\family;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class ParentController extends Controller
 {
@@ -21,7 +22,10 @@ class ParentController extends Controller
      */
     public function create()
     {
-        //
+        return view('content.dashboard.data-master.parent.create', [
+            'parents' => family::all(),
+            'users' => User::all()
+        ]);
     }
 
     /**

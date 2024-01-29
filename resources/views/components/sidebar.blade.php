@@ -15,14 +15,16 @@
 
             <li class="menu-header">Data Master</li>
             <li class="{{ Request::is('parent-data*') ? 'active' : '' }}"><a class="nav-link"
-                    href="{{ url('parent-data') }}"><i class="fa-solid fa-person-breastfeeding"></i>Data Keluarga</a>
+                    href="{{ url('parent-data') }}"><i class="fa-solid fa-person-breastfeeding"></i>
+                    <span>Data
+                        Keluarga</span></a>
             </li>
             <li class="{{ Request::is('child-data*') ? 'active' : '' }}"><a class="nav-link"
-                    href="{{ url('child-data') }}"><i class="fa-solid fa-children"></i>Data Anak</a></li>
+                    href="{{ url('child-data') }}"><i class="fa-solid fa-children"></i><span>Data Anak</span></a></li>
             <li class="{{ Request::is('officer-data*') ? 'active' : '' }}"><a href="{{ url('officer-data') }}"
-                    class="nav-link"><i class="fa-solid fa-building"></i>Data Petugas</a></li>
+                    class="nav-link"><i class="fa-solid fa-building"></i><span>Data Petugas</span></a></li>
             <li class="{{ Request::is('midwife-data*') ? 'active' : '' }}"><a href="{{ url('midwife-data') }}"
-                    class="nav-link"><i class="fa-solid fa-user-nurse"></i>Data Bidan</a></li>
+                    class="nav-link"><i class="fa-solid fa-user-nurse"></i><span>Data Bidan</span></a></li>
         </ul>
     </aside>
 </div>
