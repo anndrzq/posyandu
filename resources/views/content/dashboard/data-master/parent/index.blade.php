@@ -51,29 +51,36 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($parents as $parent)
-                                                <tr>
-                                                    <td>
-                                                        {{ $loop->iteration }}
-                                                    </td>
-                                                    <td class="user-name">
-                                                        {{ $parent->users->first() ? $parent->users->first()->username : 'N/A' }}
-                                                    <td>{{ $parent->mother_name }}</td>
-                                                    <td>{{ $parent->father_name }}</td>
-                                                    <td>{{ $parent->many_kids }}</td>
-                                                    <td>{{ $parent->city }}</td>
-                                                    </td>
-                                                    <td>
-                                                        <form action="/parent-data/{{ $parent->id }}" method="POST"
-                                                            id="delete-form-{{ $parent->id }}" class="d-inline">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-danger mr-1 btn-action del">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                                @if ($parent->users->first()->role == 'parents')
+                                                    <tr>
+                                                        <td>
+                                                            {{ $loop->iteration }}
+                                                        </td>
+                                                        <td class="user-name">
+                                                            {{ $parent->users->first() ? $parent->users->first()->username : 'N/A' }}
+                                                        <td>{{ $parent->mother_name }}</td>
+                                                        <td>{{ $parent->father_name }}</td>
+                                                        <td>{{ $parent->many_kids }}</td>
+                                                        <td>{{ $parent->city }}</td>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" data-toggle="modal"
+                                                                data-target="#exampleModal{{ $parent->id }}"
+                                                                class="btn btn-info ml-auto mr-1">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <form action="/parent-data/{{ $parent->id }}" method="POST"
+                                                                id="delete-form-{{ $parent->id }}" class="d-inline">
+                                                                @method('delete')
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="btn btn-danger mr-1 btn-action del">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -85,6 +92,104 @@
             </div>
         </section>
     </div>
+
+    <div class="modal fade" id="exampleModal{{ $parent->id }}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Keluarga</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 border-right">
+                            <!-- Bagian pertama -->
+                            <div class="mb-3">
+                                <strong>Nama Ibu: </strong>
+                                {{ $parent->mother_name ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tanggal Lahir Ibu: </strong>
+                                {{ $parent->date_of_birth_mom ? \Carbon\Carbon::parse($parent->date_of_birth_mom)->format('d F Y') : 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tempat Lahir Ibu: </strong>
+                                {{ $parent->place_of_birth_mom ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tipe Darah Ibu: </strong>
+                                {{ $parent->blood_type_mom ?? 'N/A' }}
+                            </div>
+                        </div>
+                        <div class="col-md-4 border-right">
+                            <!-- Bagian kedua -->
+                            <div class="mb-3">
+                                <strong>Nama Ayah:</strong>
+                                {{ $parent->father_name ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tanggal Lahir Ayah: </strong>
+                                {{ $parent->date_of_birth_father ? \Carbon\Carbon::parse($parent->date_of_birth_father)->format('d F Y') : 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tempat Lahir Ayah: </strong>
+                                {{ $parent->place_of_birth_father ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tipe Darah Ayah: </strong>
+                                {{ $parent->blood_type_father ?? 'N/A' }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Bagian ketiga -->
+                            <div class="mb-3">
+                                <strong>Username:</strong>
+                                {{ $parent->users->first()->username ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Jumlah Anak:</strong>
+                                {{ $parent->many_kids ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Kota:</strong>
+                                {{ $parent->city ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Alamat:</strong>
+                                {{ $parent->address ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Kecamatan:</strong>
+                                {{ $parent->subdistrict ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Kelurahan:</strong>
+                                {{ $parent->ward ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Kode Post:</strong>
+                                {{ $parent->postal_code ?? 'N/A' }}
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nomor Telefon:</strong>
+                                {{ $parent->phone_number ?? 'N/A' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 @endsection
 
 @push('scripts')

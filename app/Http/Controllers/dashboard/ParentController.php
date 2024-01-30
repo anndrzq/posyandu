@@ -12,9 +12,12 @@ class ParentController extends Controller
 {
     public function index()
     {
-        $parents = Family::select('families.id', 'mother_name', 'father_name', 'many_kids', 'city', 'users.username')
-            ->leftJoin('users', 'families.id', '=', 'users.family_id')
-            ->get();
+        $parents = Family::all();
+        $familyIds = $parents->pluck('id');
+        $usernames = User::whereIn('family_id', $familyIds)->pluck('username', 'family_id');
+        $parents->each(function ($family) use ($usernames) {
+            $family->username = $usernames->get($family->id, 'N/A');
+        });
 
         return view('content.dashboard.data-master.parent.index', ['parents' => $parents]);
     }
