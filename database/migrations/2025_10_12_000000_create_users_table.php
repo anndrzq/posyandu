@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['mother', 'father', 'midwife', 'employee', 'admin']);
+            $table->enum('role', ['parents', 'midwife', 'employee', 'admin']);
             $table->unsignedBigInteger('family_id');
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
