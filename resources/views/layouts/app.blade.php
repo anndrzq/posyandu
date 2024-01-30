@@ -60,6 +60,8 @@
     <script src="{{ asset('library/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('js/stisla.js') }}"></script>
     <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>    
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('js/page/modules-toastr.js') }}"></script>
 

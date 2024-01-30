@@ -81,9 +81,6 @@
                     data-background="{{ asset('img/unsplash/mom-baby.jpg') }}">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
-                            <div class="mb-5 pb-3">
-                                <h1 id="greeting" class="display-4 font-weight-bold mb-2">Selamat Pagi</h1>
-                            </div>
                             Photo by <a class="text-light bb" target="_blank"
                                 href="https://unsplash.com/@jonathanborba">Jonathan Borba</a> on <a
                                 class="text-light bb" target="_blank" href="https://unsplash.com">Unsplash</a>
@@ -110,27 +107,6 @@
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var greetingElement = document.getElementById('greeting');
-            var currentTime = new Date();
-
-            // Set zona waktu ke Asia/Jakarta
-            currentTime.toLocaleString('en-US', {
-                timeZone: 'Asia/Jakarta'
-            });
-
-            if (currentTime.getHours() >= 5 && currentTime.getHours() < 10) {
-                greetingElement.innerText = 'Selamat Pagi';
-            } else if (currentTime.getHours() > 10 && currentTime.getHours() < 15) {
-                greetingElement.innerText = 'Selamat Siang';
-            } else if (currentTime.getHours() > 15 && currentTime.getHours() < 18) {
-                greetingElement.innerText = 'Selamat Sore';
-            } else {
-                greetingElement.innerText = 'Selamat Malam';
-            }
-        });
-    </script>
 </body>
 
 </html>

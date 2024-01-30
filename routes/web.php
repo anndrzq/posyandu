@@ -19,6 +19,8 @@ use App\Http\Controllers\dashboard\ParentController;
 // Login
 Route::controller(LoginController::class)->middleware('guest')->group(function () {
     Route::get('/', 'index')->name('login');
+    Route::post('/', 'authenticate');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 // Dashboard

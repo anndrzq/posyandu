@@ -33,14 +33,16 @@
                                         <div class="form-group col-6">
                                             <label for="username">Username</label>
                                             <input id="username" type="text" class="form-control" name="username"
-                                                autofocus>
+                                                autofocus value="{{ old('username') }}">
                                             @error('username')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
+
                                         <div class="form-group col-6">
                                             <label for="nik">Nomor Induk Keluarga (NIK)</label>
-                                            <input id="nik" type="number" class="form-control" name="nik">
+                                            <input id="nik" type="number" class="form-control" name="nik"
+                                                value="{{ old('nik') }}">
                                             @error('nik')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -53,6 +55,7 @@
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
+
                                         <div class="form-group col-6">
                                             <label for="password_confirmation" class="d-block">Password Confirmation</label>
                                             <input id="password_confirmation" type="password" class="form-control"
@@ -62,17 +65,19 @@
                                             @enderror
                                         </div>
 
-
                                         <div class="form-group col-6">
                                             <label for="mother_name">Nama Ibu</label>
-                                            <input id="mother_name" type="text" class="form-control" name="mother_name">
+                                            <input id="mother_name" type="text" class="form-control" name="mother_name"
+                                                value="{{ old('mother_name') }}">
                                             @error('mother_name')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
+
                                         <div class="form-group col-6">
                                             <label for="father_name">Nama Ayah</label>
-                                            <input id="father_name" type="text" class="form-control" name="father_name">
+                                            <input id="father_name" type="text" class="form-control" name="father_name"
+                                                value="{{ old('father_name') }}">
                                             @error('father_name')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -81,7 +86,7 @@
                                         <div class="form-group col-6">
                                             <label for="date_of_birth_mom">Tanggal Lahir Ibu</label>
                                             <input id="date_of_birth_mom" type="text" class="form-control datepicker"
-                                                name="date_of_birth_mom">
+                                                name="date_of_birth_mom" value="{{ old('date_of_birth_mom') }}">
                                             @error('date_of_birth_mom')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -90,7 +95,7 @@
                                         <div class="form-group col-6">
                                             <label for="date_of_birth_father">Tanggal Lahir Ayah</label>
                                             <input id="date_of_birth_father" type="text" class="form-control datepicker"
-                                                name="date_of_birth_father">
+                                                name="date_of_birth_father" value="{{ old('date_of_birth_father') }}">
                                             @error('date_of_birth_father')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -99,7 +104,7 @@
                                         <div class="form-group col-6">
                                             <label for="place_of_birth_mom">Tempat Lahir Ibu</label>
                                             <input id="place_of_birth_mom" type="text" class="form-control"
-                                                name="place_of_birth_mom">
+                                                name="place_of_birth_mom" value="{{ old('place_of_birth_mom') }}">
                                             @error('place_of_birth_mom')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -108,7 +113,7 @@
                                         <div class="form-group col-6">
                                             <label for="place_of_birth_father">Tempat Lahir Ayah</label>
                                             <input id="place_of_birth_father" type="text" class="form-control"
-                                                name="place_of_birth_father">
+                                                name="place_of_birth_father" value="{{ old('place_of_birth_father') }}">
                                             @error('place_of_birth_father')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -120,10 +125,14 @@
                                                 class="form-control selectric">
                                                 <option value="" selected disabled>-- Pilih Golongan Darah Ibu --
                                                 </option>
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="AB">AB</option>
-                                                <option value="O">O</option>
+                                                <option value="A"
+                                                    {{ old('blood_type_mom') == 'A' ? 'selected' : '' }}>A</option>
+                                                <option value="B"
+                                                    {{ old('blood_type_mom') == 'B' ? 'selected' : '' }}>B</option>
+                                                <option value="AB"
+                                                    {{ old('blood_type_mom') == 'AB' ? 'selected' : '' }}>AB</option>
+                                                <option value="O"
+                                                    {{ old('blood_type_mom') == 'O' ? 'selected' : '' }}>O</option>
                                             </select>
                                             @error('blood_type_mom')
                                                 <span class="text-danger text-small">{{ $message }}</span>
@@ -136,10 +145,14 @@
                                                 class="form-control selectric">
                                                 <option value="" selected disabled>-- Pilih Golongan Darah Ayah --
                                                 </option>
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="AB">AB</option>
-                                                <option value="O">O</option>
+                                                <option value="A"
+                                                    {{ old('blood_type_father') == 'A' ? 'selected' : '' }}>A</option>
+                                                <option value="B"
+                                                    {{ old('blood_type_father') == 'B' ? 'selected' : '' }}>B</option>
+                                                <option value="AB"
+                                                    {{ old('blood_type_father') == 'AB' ? 'selected' : '' }}>AB</option>
+                                                <option value="O"
+                                                    {{ old('blood_type_father') == 'O' ? 'selected' : '' }}>O</option>
                                             </select>
                                             @error('blood_type_father')
                                                 <span class="text-danger text-small">{{ $message }}</span>
@@ -148,7 +161,8 @@
 
                                         <div class="form-group col-6">
                                             <label for="many_kids">Banyak Anak</label>
-                                            <input id="many_kids" type="number" class="form-control" name="many_kids">
+                                            <input id="many_kids" type="number" class="form-control" name="many_kids"
+                                                value="{{ old('many_kids') }}">
                                             @error('many_kids')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -156,7 +170,8 @@
 
                                         <div class="form-group col-6">
                                             <label for="address">Alamat</label>
-                                            <input id="address" type="text" class="form-control" name="address">
+                                            <input id="address" type="text" class="form-control" name="address"
+                                                value="{{ old('address') }}">
                                             @error('address')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -164,7 +179,8 @@
 
                                         <div class="form-group col-6">
                                             <label for="city">Kota</label>
-                                            <input id="city" type="text" class="form-control" name="city">
+                                            <input id="city" type="text" class="form-control" name="city"
+                                                value="{{ old('city') }}">
                                             @error('city')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -173,7 +189,7 @@
                                         <div class="form-group col-6">
                                             <label for="subdistrict">Kecamatan</label>
                                             <input id="subdistrict" type="text" class="form-control"
-                                                name="subdistrict">
+                                                name="subdistrict" value="{{ old('subdistrict') }}">
                                             @error('subdistrict')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -181,7 +197,8 @@
 
                                         <div class="form-group col-6">
                                             <label for="ward">Kelurahan</label>
-                                            <input id="ward" type="text" class="form-control" name="ward">
+                                            <input id="ward" type="text" class="form-control" name="ward"
+                                                value="{{ old('ward') }}">
                                             @error('ward')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -190,7 +207,7 @@
                                         <div class="form-group col-6">
                                             <label for="postal_code">Kode Post</label>
                                             <input id="postal_code" type="number" class="form-control"
-                                                name="postal_code">
+                                                name="postal_code" value="{{ old('postal_code') }}">
                                             @error('postal_code')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -199,7 +216,7 @@
                                         <div class="form-group col-6">
                                             <label for="phone_number">Nomer Telefon (AKTIF)</label>
                                             <input id="phone_number" type="number" class="form-control"
-                                                name="phone_number">
+                                                name="phone_number" value="{{ old('phone_number') }}">
                                             @error('phone_number')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror

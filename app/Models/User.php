@@ -25,9 +25,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function parents()
+    public function family()
     {
-        return $this->hasMany(family::class);
+        return $this->belongsTo(Family::class, 'family_id');
     }
 }

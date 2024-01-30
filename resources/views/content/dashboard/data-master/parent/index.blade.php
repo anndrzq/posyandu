@@ -41,11 +41,11 @@
                                                 <th class="text-center">
                                                     No
                                                 </th>
+                                                <th>Username</th>
                                                 <th>Nama Ibu</th>
                                                 <th>Nama Ayah</th>
                                                 <th>Jumlah Anak</th>
                                                 <th>Kota</th>
-                                                <th>No Handphone</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -55,12 +55,24 @@
                                                     <td>
                                                         {{ $loop->iteration }}
                                                     </td>
+                                                    <td class="user-name">
+                                                        {{ $parent->users->first() ? $parent->users->first()->username : 'N/A' }}
                                                     <td>{{ $parent->mother_name }}</td>
                                                     <td>{{ $parent->father_name }}</td>
-                                                    <td>{{ $parent->childrens_count }}</td>
+                                                    <td>{{ $parent->many_kids }}</td>
                                                     <td>{{ $parent->city }}</td>
-                                                    <td>{{ $parent->handphone }}</td>
-                                                    <td></td>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/parent-data/{{ $parent->id }}" method="POST"
+                                                            id="delete-form-{{ $parent->id }}" class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-1 btn-action del">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -76,6 +88,38 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.del').on('click', function(e) {
+                e.preventDefault();
+
+                const formId = $(this).closest('form').attr('id');
+
+                swal({
+                    title: 'Hapus Data',
+                    text: 'Apakah Anda Yakin Ingin Menghapus Data Ini?',
+                    icon: 'warning',
+                    buttons: {
+                        cancel: 'Batal',
+                        confirm: {
+                            text: 'Ya, Hapus!',
+                            value: true,
+                            className: 'btn-danger',
+                        }
+                    },
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $('#' + formId).submit();
+                    } else {
+                        swal('Penghapusan Dibatalkan');
+                    }
+                });
+            });
+        });
+    </script>
+
+
     <script src="{{ asset('node_modules/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>

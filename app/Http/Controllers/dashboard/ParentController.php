@@ -12,7 +12,10 @@ class ParentController extends Controller
 {
     public function index()
     {
-        $parents = family::select('mother_name', 'father_name', 'many_kids', 'city', 'phone_number')->get();
+        $parents = Family::select('families.id', 'mother_name', 'father_name', 'many_kids', 'city', 'users.username')
+            ->leftJoin('users', 'families.id', '=', 'users.family_id')
+            ->get();
+
         return view('content.dashboard.data-master.parent.index', ['parents' => $parents]);
     }
 
@@ -37,7 +40,6 @@ class ParentController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $data = $request->validate(
             [
                 'username' => 'required|min:4|unique:users',
@@ -67,13 +69,6 @@ class ParentController extends Controller
             ]
         );
 
-        dd($data);
-
-        $user = User::create([
-            'username' => $data['username'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role']
-        ]);
 
         $family = family::create([
             'nik' => $data['nik'],
@@ -93,6 +88,14 @@ class ParentController extends Controller
             'postal_code' =>   $data['postal_code'],
             'phone_number' => $data['phone_number']
         ]);
+
+        $user = User::create([
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+            'family_id' => $family->id
+        ]);
+
 
         return redirect('/parent-data')->with('success', 'Keluarga Berhasil Di Tambah');
     }
@@ -137,8 +140,13 @@ class ParentController extends Controller
      * @param  \App\Models\family  $family
      * @return \Illuminate\Http\Response
      */
-    public function destroy(family $family)
+    public function destroy($id)
     {
-        //
+        $family = Family::findOrFail($id);
+        if ($family->user) {
+            $family->user->delete();
+        }
+        $family->delete();
+        return redirect('/parent-data')->with('success', 'Keluarga Berhasil Dihapus');
     }
 }
