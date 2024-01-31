@@ -32,10 +32,16 @@
                                 class="font-weight-bold">Pelayanan Posyandu</span>
                         </h4>
                         <p class="text-muted">Sebelum melakukan aktifitas anda harus login terlebih dahulu.</p>
-                        <form method="POST" action="#" class="needs-validation" novalidate="">
+                        @if (session()->has('LoginFail'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('LoginFail') }}
+                            </div>
+                        @endif
+                        <form method="POST" action="/" class="needs-validation" novalidate="">
+                            @csrf
                             <div class="form-group">
-                                <label for="email">Username</label>
-                                <input id="email" type="email" class="form-control" name="email" tabindex="1"
+                                <label for="username">Username</label>
+                                <input id="username" type="text" class="form-control" name="username" tabindex="1"
                                     required autofocus>
                                 <div class="invalid-feedback">
                                     Silakan Masuk kan Username

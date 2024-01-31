@@ -14,6 +14,12 @@ class family extends Model
     ];
     public function users()
     {
-        return $this->hasMany(User::class, 'family_id');
+        // awal hasmany
+        return $this->belongsTo(User::class, 'family_id');
+    }
+
+    public function child()
+    {
+        return $this->hasMany(Child::class);
     }
 }

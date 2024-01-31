@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('family_id');
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 

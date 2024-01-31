@@ -15,14 +15,11 @@ class User extends Authenticatable
     protected $guarded = [
         'id'
     ];
+    public $timestamps = false;
 
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     public function family()

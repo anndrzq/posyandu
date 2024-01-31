@@ -20,11 +20,12 @@ use App\Http\Controllers\dashboard\ParentController;
 Route::controller(LoginController::class)->middleware('guest')->group(function () {
     Route::get('/', 'index')->name('login');
     Route::post('/', 'authenticate');
-    Route::post('/logout', 'logout')->name('logout');
 });
 
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
 // Dashboard
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('guest');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Data Master
-Route::resource('parent-data', ParentController::class)->middleware('guest');
+Route::resource('parent-data', ParentController::class)->middleware('auth');
