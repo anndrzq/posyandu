@@ -9,6 +9,13 @@
 @endpush
 
 @section('main')
+    @if (session('success'))
+        <div class="flash-data" data-flashdata="{{ session('success') }}"></div>
+    @endif
+
+    @if (session('error'))
+        <div class="error-data" data-errordata="{{ session('error') }}"></div>
+    @endif
     <div class="main-content">
         <section class="section">
             <div class="section-header">

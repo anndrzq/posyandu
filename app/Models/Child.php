@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Child extends Model
 {
     use HasFactory;
-
+    protected $guarded = [
+        'id'
+    ];
     public function parent()
     {
-        return $this->hasMany(family::class);
+        return $this->belongsTo(family::class, 'family_id');
     }
 }

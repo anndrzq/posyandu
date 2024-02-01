@@ -22,11 +22,6 @@ class ParentController extends Controller
         return view('content.dashboard.data-master.parent.index', ['parents' => $parents]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('content.dashboard.data-master.parent.create', [
@@ -35,12 +30,6 @@ class ParentController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $data = $request->validate(
@@ -103,46 +92,23 @@ class ParentController extends Controller
         return redirect('/parent-data')->with('success', 'Keluarga Berhasil Di Tambah');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\family  $family
-     * @return \Illuminate\Http\Response
-     */
     public function show(family $family)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\family  $family
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(family $family)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\family  $family
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, family $family)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\family  $family
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         $family = Family::findOrFail($id);

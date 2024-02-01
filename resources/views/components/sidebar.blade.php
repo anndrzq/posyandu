@@ -19,8 +19,9 @@
                     <span>Data
                         Keluarga</span></a>
             </li>
-            <li class="{{ Request::is('child-data*') ? 'active' : '' }}"><a class="nav-link"
-                    href="{{ url('child-data') }}"><i class="fa-solid fa-children"></i><span>Data Anak</span></a></li>
+            <li class="{{ Request::is('children-data*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('children-data') }}"><i class="fa-solid fa-children"></i><span>Data Anak</span></a>
+            </li>
             <li class="{{ Request::is('officer-data*') ? 'active' : '' }}"><a href="{{ url('officer-data') }}"
                     class="nav-link"><i class="fa-solid fa-building"></i><span>Data Petugas</span></a></li>
             <li class="{{ Request::is('midwife-data*') ? 'active' : '' }}"><a href="{{ url('midwife-data') }}"

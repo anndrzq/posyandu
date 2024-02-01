@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
+use App\Http\Controllers\dashboard\ChildController;
 use App\Http\Controllers\dashboard\ParentController;
 
 /*
@@ -29,3 +30,4 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 // Data Master
 Route::resource('parent-data', ParentController::class)->middleware('auth');
+Route::resource('children-data', ChildController::class)->middleware('auth');

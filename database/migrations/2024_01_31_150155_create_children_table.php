@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('children', function (Blueprint $table) {
             $table->id();
             $table->string('nik');
-            $table->string("name");
+            $table->string('name');
             $table->string('place_of_birth_child');
             $table->date('date_of_birth_child');
-            $table->string('gender');
+            $table->enum('gender', ['L', 'P']);
             $table->enum('blood_type_child', ['-', 'A', 'B', 'AB', 'O']);
-            $table->unsignedBigInteger('mother');
-            $table->foreign('mother')->references('id')->on('families')->onDelete('cascade');
+            $table->unsignedBigInteger('family_id');
+            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->timestamps();
         });
     }
