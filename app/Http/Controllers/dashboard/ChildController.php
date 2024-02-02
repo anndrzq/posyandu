@@ -6,7 +6,7 @@ use App\Models\Child;
 use App\Models\family;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Validation\Rule;
 
 class ChildController extends Controller
 {
@@ -71,18 +71,39 @@ class ChildController extends Controller
         //
     }
 
-    public function edit(Child $child)
+    public function edit($id)
     {
-        //
+        $children = Child::findOrFail($id);
+        $families = Family::select('id', 'mother_name')->get();
+        return view('content.dashboard.data-master.children.edit', compact('children', 'families'));
     }
 
-    public function update(Request $request, Child $child)
+    public function update(Request $request, $id)
     {
-        //
+        $child = Child::findOrFail($id);
+        $data = $request->validate([
+            'nik' => [
+                'required',
+                'size:16',
+                Rule::unique('children')->ignore($child->id),
+            ],
+            'name' => 'required',
+            'gender' => 'required|in:L,P',
+            'date_of_birth_child' => 'required|date',
+            'place_of_birth_child' => 'required',
+            'blood_type_child' => 'required',
+            'family_id' => 'required'
+        ]);
+        $child->update($data);
+
+        return redirect('children-data')->with('success', 'Data berhasil diperbarui');
     }
 
-    public function destroy(Child $child)
+    public function destroy($id)
     {
-        //
+        $child = Child::findOrFail($id);
+        $child->delete();
+
+        return redirect('children-data')->with('success', 'Data berhasil dihapus');
     }
 }

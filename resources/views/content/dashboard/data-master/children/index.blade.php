@@ -60,7 +60,24 @@
                                                     <td>{{ ucfirst($child->name) }}</td>
                                                     <td>{{ ucfirst($child->place_of_birth_child) }}</td>
                                                     <td>{{ date('d F Y', strtotime($child->date_of_birth_child)) }}</td>
-                                                    <td></td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#exampleModal{{ $child->id }}"
+                                                            class="btn btn-info ml-auto mr-1">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <a href="/children-data/{{ $child->id }}/edit"
+                                                            class="btn btn-warning ml-auto"><i class="fas fa-edit"></i></a>
+                                                        <form action="/children-data/{{ $child->id }}" method="POST"
+                                                            id="delete-form-{{ $child->id }}" class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-1 btn-action del">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

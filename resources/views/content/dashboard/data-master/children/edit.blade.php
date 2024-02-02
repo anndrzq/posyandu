@@ -30,14 +30,15 @@
                 <div class="row">
                     <div class="col-12 ">
                         <div class="card">
-                            <form action="/children-data" method="POST" enctype="multipart/form-data">
+                            <form action="/children-data/{{ $children->id }}" method="POST" enctype="multipart/form-data">
+                                @method('put')
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="nik">Nomor Induk Anak (NIK)</label>
                                             <input id="nik" type="number" class="form-control" name="nik"
-                                                value="{{ old('nik') }}">
+                                                value="{{ old('nik', $children->nik) }}">
                                             @error('nik')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -47,20 +48,23 @@
                                             <label for="family_id">Nama Ibu</label>
                                             <select name="family_id" id="family_id" class="form-control selectric">
                                                 <option value="" selected disabled>-- Nama Ibu --</option>
-                                                @foreach ($children as $child)
-                                                    <option value="{{ $child->id }}">
-                                                        {{ $child->mother_name }}</option>
+                                                @foreach ($families as $family)
+                                                    <option value="{{ $family->id }}"
+                                                        {{ $family->id == $children->family_id ? 'selected' : '' }}>
+                                                        {{ $family->mother_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            @error('mother_name')
+                                            @error('family_id')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
 
+
                                         <div class="form-group col-6">
                                             <label for="name">Nama Anak</label>
                                             <input id="name" type="text" class="form-control" name="name"
-                                                value="{{ old('name') }}">
+                                                value="{{ old('name', $children->name) }}">
                                             @error('name')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -69,7 +73,8 @@
                                         <div class="form-group col-6">
                                             <label for="date_of_birth_child">Tanggal Lahir Anak</label>
                                             <input id="date_of_birth_child" type="text" class="form-control datepicker"
-                                                name="date_of_birth_child" value="{{ old('date_of_birth_child') }}">
+                                                name="date_of_birth_child"
+                                                value="{{ old('date_of_birth_child', $children->date_of_birth_child) }}">
                                             @error('date_of_birth_child')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -78,7 +83,8 @@
                                         <div class="form-group col-6">
                                             <label for="place_of_birth_child">Tempat Lahir Anak</label>
                                             <input id="place_of_birth_child" type="text" class="form-control"
-                                                name="place_of_birth_child" value="{{ old('place_of_birth_child') }}">
+                                                name="place_of_birth_child"
+                                                value="{{ old('place_of_birth_child', $children->place_of_birth_child) }}">
                                             @error('place_of_birth_child')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
@@ -89,10 +95,12 @@
                                             <select name="gender" id="gender" class="form-control selectric">
                                                 <option value="" selected disabled>-- Jenis Kelamin --
                                                 </option>
-                                                <option value="L" {{ old('gender') == 'L' ? 'selected' : '' }}>Laki -
+                                                <option value="L"
+                                                    {{ old('gender', $children->gender) == 'L' ? 'selected' : '' }}>Laki -
                                                     Laki
                                                 </option>
-                                                <option value="P" {{ old('gender') == 'P' ? 'selected' : '' }}>
+                                                <option value="P"
+                                                    {{ old('gender', $children->gender) == 'P' ? 'selected' : '' }}>
                                                     Perempuan
                                                 </option>
                                             </select>
@@ -108,16 +116,21 @@
                                                 <option value="" selected disabled>-- Pilih Golongan Darah Anak --
                                                 </option>
                                                 <option value="-"
-                                                    {{ old('blood_type_child') == '-' ? 'selected' : '' }}>Belum Cek Darah
+                                                    {{ old('blood_type_child', $children->blood_type_child) == '-' ? 'selected' : '' }}>
+                                                    Belum Cek Darah
                                                 </option>
                                                 <option value="A"
-                                                    {{ old('blood_type_child') == 'A' ? 'selected' : '' }}>A</option>
+                                                    {{ old('blood_type_child', $children->blood_type_child) == 'A' ? 'selected' : '' }}>
+                                                    A</option>
                                                 <option value="B"
-                                                    {{ old('blood_type_child') == 'B' ? 'selected' : '' }}>B</option>
+                                                    {{ old('blood_type_child', $children->blood_type_child) == 'B' ? 'selected' : '' }}>
+                                                    B</option>
                                                 <option value="AB"
-                                                    {{ old('blood_type_child') == 'AB' ? 'selected' : '' }}>AB</option>
+                                                    {{ old('blood_type_child', $children->blood_type_child) == 'AB' ? 'selected' : '' }}>
+                                                    AB</option>
                                                 <option value="O"
-                                                    {{ old('blood_type_child') == 'O' ? 'selected' : '' }}>O</option>
+                                                    {{ old('blood_type_child', $children->blood_type_child) == 'O' ? 'selected' : '' }}>
+                                                    O</option>
                                             </select>
                                             @error('blood_type_child')
                                                 <span class="text-danger text-small">{{ $message }}</span>
@@ -126,7 +139,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button type="submit" class="btn btn-primary">Tambah Anak</button>
+                                    <button type="submit" class="btn btn-primary">Edit Data Anak</button>
                                 </div>
                             </form>
                         </div>
