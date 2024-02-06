@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->enum('position', ['Ketua', 'Anggota', 'Bendahara']);
             $table->String('last_educations');
+            $table->string('phone_number')->unique();
             $table->timestamps();
         });
     }

@@ -14,6 +14,10 @@
         <div class="flash-data" data-flashdata="{{ session('success') }}"></div>
     @endif
 
+    @if (session('error'))
+        <div class="error-data" data-errordata="{{ session('error') }}"></div>
+    @endif
+
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -107,76 +111,67 @@
                     <div class="row">
                         <div class="col-md-4 border-right">
                             <!-- Bagian pertama -->
-                            <div class="mb-3">
-                                <strong>Nama Ibu: </strong>
-                                {{ $parent->mother_name ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tanggal Lahir Ibu: </strong>
-                                {{ $parent->date_of_birth_mom ? \Carbon\Carbon::parse($parent->date_of_birth_mom)->format('d F Y') : 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tempat Lahir Ibu: </strong>
-                                {{ $parent->place_of_birth_mom ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tipe Darah Ibu: </strong>
-                                {{ $parent->blood_type_mom ?? 'N/A' }}
-                            </div>
+                            <dl class="row">
+                                <dt class="col-sm-4">Nama Ibu:</dt>
+                                <dd class="col-sm-8">{{ $parent->mother_name ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Tanggal Lahir Ibu:</dt>
+                                <dd class="col-sm-8">
+                                    {{ $parent->date_of_birth_mom ? \Carbon\Carbon::parse($parent->date_of_birth_mom)->format('d F Y') : 'N/A' }}
+                                </dd>
+
+                                <dt class="col-sm-4">Tempat Lahir Ibu:</dt>
+                                <dd class="col-sm-8">{{ $parent->place_of_birth_mom ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Tipe Darah Ibu:</dt>
+                                <dd class="col-sm-8">{{ $parent->blood_type_mom ?? 'N/A' }}</dd>
+                            </dl>
                         </div>
                         <div class="col-md-4 border-right">
                             <!-- Bagian kedua -->
-                            <div class="mb-3">
-                                <strong>Nama Ayah:</strong>
-                                {{ $parent->father_name ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tanggal Lahir Ayah: </strong>
-                                {{ $parent->date_of_birth_father ? \Carbon\Carbon::parse($parent->date_of_birth_father)->format('d F Y') : 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tempat Lahir Ayah: </strong>
-                                {{ $parent->place_of_birth_father ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tipe Darah Ayah: </strong>
-                                {{ $parent->blood_type_father ?? 'N/A' }}
-                            </div>
+                            <dl class="row">
+                                <dt class="col-sm-4">Nama Ayah:</dt>
+                                <dd class="col-sm-8">{{ $parent->father_name ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Tanggal Lahir Ayah:</dt>
+                                <dd class="col-sm-8">
+                                    {{ $parent->date_of_birth_father ? \Carbon\Carbon::parse($parent->date_of_birth_father)->format('d F Y') : 'N/A' }}
+                                </dd>
+
+                                <dt class="col-sm-4">Tempat Lahir Ayah:</dt>
+                                <dd class="col-sm-8">{{ $parent->place_of_birth_father ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Tipe Darah Ayah:</dt>
+                                <dd class="col-sm-8">{{ $parent->blood_type_father ?? 'N/A' }}</dd>
+                            </dl>
                         </div>
                         <div class="col-md-4">
                             <!-- Bagian ketiga -->
-                            <div class="mb-3">
-                                <strong>Username:</strong>
-                                {{ $parent->users->first()->username ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Jumlah Anak:</strong>
-                                {{ $parent->many_kids ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Kota:</strong>
-                                {{ $parent->city ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Alamat:</strong>
-                                {{ $parent->address ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Kecamatan:</strong>
-                                {{ $parent->subdistrict ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Kelurahan:</strong>
-                                {{ $parent->ward ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Kode Post:</strong>
-                                {{ $parent->postal_code ?? 'N/A' }}
-                            </div>
-                            <div class="mb-3">
-                                <strong>Nomor Telefon:</strong>
-                                {{ $parent->phone_number ?? 'N/A' }}
-                            </div>
+                            <dl class="row">
+                                <dt class="col-sm-4">Username:</dt>
+                                <dd class="col-sm-8">{{ $parent->users->first()->username ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Jumlah Anak:</dt>
+                                <dd class="col-sm-8">{{ $parent->many_kids ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Kota:</dt>
+                                <dd class="col-sm-8">{{ $parent->city ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Alamat:</dt>
+                                <dd class="col-sm-8">{{ $parent->address ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Kecamatan:</dt>
+                                <dd class="col-sm-8">{{ $parent->subdistrict ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Kelurahan:</dt>
+                                <dd class="col-sm-8">{{ $parent->ward ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Kode Post:</dt>
+                                <dd class="col-sm-8">{{ $parent->postal_code ?? 'N/A' }}</dd>
+
+                                <dt class="col-sm-4">Nomor Telefon:</dt>
+                                <dd class="col-sm-8">{{ $parent->phone_number ?? 'N/A' }}</dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
@@ -186,10 +181,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection
 
 @push('scripts')
