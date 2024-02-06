@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Officer::class, 'officer_id');
     }
+
+    public function midwife()
+    {
+        return $this->belongsTo(Midwife::class, 'midwife_id');
+    }
 }
