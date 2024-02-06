@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['parents', 'midwife', 'employee', 'admin']);
-            $table->unsignedBigInteger('family_id');
+            $table->unsignedBigInteger('family_id')->nullable();
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
+            $table->unsignedBigInteger('officer_id')->nullable();
+            $table->foreign('officer_id')->references('id')->on('officers')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
