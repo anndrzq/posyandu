@@ -81,7 +81,6 @@
                                                                 </button>
                                                             </form>
                                                         </td>
-
                                                     </tr>
                                                 @endif
                                             @endforeach
@@ -96,62 +95,81 @@
         </section>
     </div>
 
-    {{-- <div class="modal fade" id="exampleModal{{ $officer->id }}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail Petugas</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Single column layout -->
-                            <dl class="row">
-                                <dt class="col-sm-4">Nomor Induk Keluarga</dt>
-                                <dd class="col-sm-8">:{{ $officer->nik ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Nomor Induk Pokok</dt>
-                                <dd class="col-sm-8">:{{ $officer->nip ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Nama Petugas</dt>
-                                <dd class="col-sm-8">:{{ $officer->name ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Tempat Lahir</dt>
-                                <dd class="col-sm-8">:{{ $officer->place_of_birth ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Tanggal Lahir</dt>
-                                <dd class="col-sm-8">
-                                    :{{ $officer->date_of_birth ? \Carbon\Carbon::parse($officer->date_of_birth)->format('d F Y') : 'N/A' }}
-                                </dd>
-
-                                <dt class="col-sm-4">Jenis Kelamin</dt>
-                                <dd class="col-sm-8">:{{ $officer->gender ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Alamat</dt>
-                                <dd class="col-sm-8">:{{ $officer->address ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Jabatan</dt>
-                                <dd class="col-sm-8">:{{ $officer->position ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Pendidikan Terakhir</dt>
-                                <dd class="col-sm-8">:{{ $officer->last_educations ?? 'N/A' }}</dd>
-
-                                <dt class="col-sm-4">Nomor Telefon</dt>
-                                <dd class="col-sm-8">:{{ $officer->phone_number ?? 'N/A' }}</dd>
-                            </dl>
+    @foreach ($officers as $officer)
+        @if ($officer->users->first()->role == 'employee')
+            <div class="modal fade" id="exampleModal{{ $officer->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail
+                                Petugas</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Single column layout -->
+                                    <dl class="row">
+                                        <dt class="col-sm-4">Nomor Induk Keluarga
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->nik ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Nomor Induk Pokok</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->nip ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Nama Petugas</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->name ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Tempat Lahir</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->place_of_birth ?? 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Tanggal Lahir</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->date_of_birth ? \Carbon\Carbon::parse($officer->date_of_birth)->format('d F Y') : 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Jenis Kelamin</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->gender ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Alamat</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->address ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Jabatan</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->position ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Pendidikan Terakhir
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->last_educations ?? 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Nomor Telefon</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $officer->phone_number ?? 'N/A' }}
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> --}}
+        @endif
+    @endforeach
 @endsection
 
 @push('scripts')
