@@ -6,6 +6,7 @@ use App\Http\Controllers\dashboard\ParentController;
 use App\Http\Controllers\dashboard\OfficerController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
+use App\Http\Controllers\dashboard\MidwifeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 Route::resource('parent-data', ParentController::class)->middleware('auth');
 Route::resource('children-data', ChildController::class)->middleware('auth');
 Route::resource('officer-data', OfficerController::class)->middleware('auth');
+Route::resource('midwife-data', MidwifeController::class)->middleware('auth');

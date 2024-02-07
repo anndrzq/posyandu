@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
             $table->unsignedBigInteger('officer_id')->nullable();
             $table->foreign('officer_id')->references('id')->on('officers')->onDelete('cascade');
+            $table->unsignedBigInteger('midwife_id')->nullable();
+            $table->foreign('midwife_id')->references('id')->on('midwives')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
