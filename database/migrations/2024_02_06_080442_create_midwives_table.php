@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('midwives', function (Blueprint $table) {
             $table->id();
+            $table->string('nik');
+            $table->string('nip');
+            $table->string('name');
+            $table->string('place_of_birth');
+            $table->date('date_of_birth');
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
+            $table->text('address')->nullable();
+            $table->String('last_educations');
+            $table->string('phone_number')->unique();
             $table->timestamps();
         });
     }
