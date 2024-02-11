@@ -201,12 +201,19 @@
             </div>
         </li>
         <li class="dropdown">
-            {{-- <a href="#" data-toggle="dropdown"
-                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->family->mother_name }}
+                <div class="d-sm-none d-lg-inline-block">
+                    @if (Auth::user()->family_id != null)
+                        Hi, {{ Auth::user()->family->mother_name }}
+                    @elseif (Auth::user()->officer_id != null)
+                        Hi, {{ Auth::user()->officer->name }}
+                    @elseif (Auth::user()->midwife_id != null)
+                        Hi, Dr. {{ Auth::user()->midwife->name }}
+                    @endif
+
                 </div>
-            </a> --}}
+            </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in {{ now()->diffInMinutes(Auth::user()->last_login) }}
                     min ago</div>
