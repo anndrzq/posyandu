@@ -28,9 +28,9 @@
                     class="nav-link"><i class="fa-solid fa-user-nurse"></i><span>Data Bidan</span></a></li>
 
             <li class="menu-header">Layanan</li>
-            <li class="{{ Request::is('child-development*') ? 'active' : '' }}"><a class="nav-link"
-                    href="{{ url('child-development') }}"><i class="fa-solid fa-hands-holding-child"></i>
-                    <span>Perkembangan Anak</span></a>
+            <li class="{{ Request::is('weighing-children*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('weighing-children') }}"><i class="fa-solid fa-hands-holding-child"></i>
+                    <span>Penimbangan Anak</span></a>
             </li>
             <li class="{{ Request::is('child-immunization*') ? 'active' : '' }}"><a class="nav-link"
                     href="{{ url('child-immunization') }}"><i class="fa-solid fa-syringe"></i><span>Imunisasi
