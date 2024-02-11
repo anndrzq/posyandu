@@ -93,7 +93,7 @@
         </section>
     </div>
 
-    {{-- @foreach ($midwifes as $midwife)
+    @foreach ($midwives as $midwife)
         @if ($midwife->users->first()->role == 'midwife')
             <div class="modal fade" id="exampleModal{{ $midwife->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -142,10 +142,6 @@
                                         <dd class="col-sm-8">
                                             :{{ $midwife->address ?? 'N/A' }}</dd>
 
-                                        <dt class="col-sm-4">Jabatan</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->position ?? 'N/A' }}</dd>
-
                                         <dt class="col-sm-4">Pendidikan Terakhir
                                         </dt>
                                         <dd class="col-sm-8">
@@ -167,7 +163,7 @@
                 </div>
             </div>
         @endif
-    @endforeach --}}
+    @endforeach
 @endsection
 
 @push('scripts')
