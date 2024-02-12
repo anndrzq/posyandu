@@ -8,6 +8,7 @@ use App\Http\Controllers\dashboard\OfficerController;
 use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
+use Symfony\Component\HttpFoundation\ServerBag;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,10 @@ Route::resource('midwife-data', MidwifeController::class)->middleware('auth');
 
 Route::controller(ServiceController::class)->middleware('auth')->group(function () {
     Route::get('weighing-children', 'WeighingChild')->name('weighing.child');
+    Route::post('weighing-children', 'StoreWeighing')->name('store.weighing');
+});
+
+Route::controller(ServiceController::class)->middleware('auth')->group(function () {
+    Route::get('child-immunization', 'ImmunizationChild')->name('Immunization');
+    Route::post('child-immunization', 'StoreImmunization')->name( 'store.Immunization' );
 });
