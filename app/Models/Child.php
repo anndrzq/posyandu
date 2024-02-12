@@ -15,4 +15,9 @@ class Child extends Model
     {
         return $this->belongsTo(family::class, 'family_id');
     }
+
+    public function serviceChild()
+    {
+        return $this->hasMany(ServiceChild::class);
+    }
 }

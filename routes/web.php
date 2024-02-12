@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\ChildController;
 use App\Http\Controllers\dashboard\ParentController;
+use App\Http\Controllers\dashboard\MidwifeController;
 use App\Http\Controllers\dashboard\OfficerController;
+use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
-use App\Http\Controllers\dashboard\MidwifeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,7 @@ Route::resource('parent-data', ParentController::class)->middleware('auth');
 Route::resource('children-data', ChildController::class)->middleware('auth');
 Route::resource('officer-data', OfficerController::class)->middleware('auth');
 Route::resource('midwife-data', MidwifeController::class)->middleware('auth');
+
+Route::controller(ServiceController::class)->middleware('auth')->group(function () {
+    Route::get('weighing-children', 'WeighingChild')->name('weighing.child');
+});

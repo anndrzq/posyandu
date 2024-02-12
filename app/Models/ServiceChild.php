@@ -10,4 +10,9 @@ class ServiceChild extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function child()
+    {
+        return $this->belongsTo(Child::class);
+    }
 }
