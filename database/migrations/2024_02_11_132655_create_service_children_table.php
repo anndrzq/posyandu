@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('age_at_weighing')->nullable();
             $table->string('body_weight_at_weighing')->nullable();
             $table->string('height_at_weighing')->nullable();
-            $table->enum('in_accordance', ['y', 'n'])->nullable();
+            $table->enum('in_accordance', ['Y', 'T'])->nullable();
             $table->string('information_at_weighing')->nullable();
             // During Immunization
             $table->date('immunization_date')->nullable();
