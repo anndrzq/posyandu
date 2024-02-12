@@ -67,64 +67,54 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="age_at_weighing">Usia</label>
-                                            <input id="age_at_weighing" type="text" class="form-control"
-                                                name="age_at_weighing" value="{{ old('age_at_weighing') }}" readonly>
-                                            @error('age_at_weighing')
+                                            <label for="age_at_immunization">Usia</label>
+                                            <input id="age_at_immunization" type="text" class="form-control"
+                                                name="age_at_immunization" value="{{ old('age_at_immunization') }}"
+                                                readonly>
+                                            @error('age_at_immunization')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="weigh_date">Tanggal Imunisasi</label>
-                                            <input id="weigh_date" type="text" class="form-control datepicker"
-                                                name="weigh_date" value="{{ old('weigh_date') }}">
-                                            @error('weigh_date')
+                                            <label for="immunization_date">Tanggal Imunisasi</label>
+                                            <input id="immunization_date" type="text" class="form-control datepicker"
+                                                name="immunization_date" value="{{ old('immunization_date') }}">
+                                            @error('immunization_date')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="body_weight_at_weighing">Berat Badan (BB)</label>
-                                            <input id="body_weight_at_weighing" type="number" class="form-control"
-                                                name="body_weight_at_weighing">
-                                            @error('body_weight_at_weighing')
-                                                <span class="text-danger text-small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group col-6">
-                                            <label for="height_at_weighing">Tinggi Badan (TB)</label>
-                                            <input id="height_at_weighing" type="number" class="form-control"
-                                                name="height_at_weighing">
-                                            @error('height_at_weighing')
-                                                <span class="text-danger text-small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group col-6">
-                                            <label for="in_accordance">Perkembangan</label>
-                                            <select name="in_accordance" id="in_accordance" class="form-control selectric">
-                                                <option value="" selected disabled>-- Perkembangan --
+                                            <label for="vitamins_a">Vitamin A</label>
+                                            <select name="vitamins_a" id="vitamins_a" class="form-control selectric">
+                                                <option value="" selected disabled>-- Vitamin --
                                                 </option>
-                                                <option value="Y" {{ old('in_accordance') == 'Y' ? 'selected' : '' }}>
-                                                    Sesuai
+                                                <option value="Red" {{ old('vitamins_a') == 'Red' ? 'selected' : '' }}>
+                                                    Merah
                                                 </option>
-                                                <option value="T" {{ old('in_accordance') == 'T' ? 'selected' : '' }}>
-                                                    Tidak
+                                                <option value="Blue" {{ old('vitamins_a') == 'Blue' ? 'selected' : '' }}>
+                                                    Biru
                                                 </option>
                                             </select>
-                                            @error('in_accordance')
+                                            @error('vitamins_a')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-6" id="keterangan-container" style="display: none;">
+                                        <div class="form-group col-6">
                                             <label for="information_at_weighing">Keterangan</label>
                                             <div>
                                                 <textarea class="summernote-simple" id="information_at_weighing" name="information_at_weighing"></textarea>
                                             </div>
                                         </div>
+
+                                        {{-- <div class="form-group col-6" id="keterangan-container" style="display: none;">
+                                            <label for="information_at_weighing">Keterangan</label>
+                                            <div>
+                                                <textarea class="summernote-simple" id="information_at_weighing" name="information_at_weighing"></textarea>
+                                            </div>
+                                        </div> --}}
 
                                     </div>
                                 </div>
@@ -170,7 +160,7 @@
                 $('#mother').val(selectedMother);
                 $('#father').val(selectedFather);
                 $('#birthdate').val(formattedBirthdate);
-                $('#age_at_weighing').val(formatAge(age));
+                $('#age_at_immunization').val(formatAge(age));
             });
 
             function formatDate(date) {
@@ -220,19 +210,19 @@
             }
         });
 
-        $(document).ready(function() {
-            // Menggunakan event change untuk mendeteksi perubahan pada dropdown Perkembangan
-            $('#in_accordance').change(function() {
-                // Mendapatkan nilai dropdown yang dipilih
-                var selectedValue = $(this).val();
+        // $(document).ready(function() {
+        //     // Menggunakan event change untuk mendeteksi perubahan pada dropdown Perkembangan
+        //     $('#in_accordance').change(function() {
+        //         // Mendapatkan nilai dropdown yang dipilih
+        //         var selectedValue = $(this).val();
 
-                // Menampilkan atau menyembunyikan elemen keterangan berdasarkan nilai dropdown
-                if (selectedValue === 'P') {
-                    $('#keterangan-container').show();
-                } else {
-                    $('#keterangan-container').hide();
-                }
-            });
-        });
+        //         // Menampilkan atau menyembunyikan elemen keterangan berdasarkan nilai dropdown
+        //         if (selectedValue === 'P') {
+        //             $('#keterangan-container').show();
+        //         } else {
+        //             $('#keterangan-container').hide();
+        //         }
+        //     });
+        // });
     </script>
 @endpush

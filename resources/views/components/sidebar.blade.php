@@ -27,6 +27,15 @@
             <li class="{{ Request::is('midwife-data*') ? 'active' : '' }}"><a href="{{ url('midwife-data') }}"
                     class="nav-link"><i class="fa-solid fa-user-nurse"></i><span>Data Bidan</span></a></li>
 
+            <li class="menu-header">Persediaan</li>
+            <li class="{{ Request::is('immunization*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('immunization') }}"><i class="fa-solid fa-suitcase-medical"></i>
+                    <span>Vaksin</span></a>
+            </li>
+            <li class="{{ Request::is('vitamins*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('vitamins') }}"><i class="fa-solid fa-pills"></i><span>Vitamin</span></a>
+            </li>
+
             <li class="menu-header">Layanan</li>
             <li class="{{ Request::is('weighing-children*') ? 'active' : '' }}"><a class="nav-link"
                     href="{{ url('weighing-children') }}"><i class="fa-solid fa-hands-holding-child"></i>
