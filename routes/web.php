@@ -8,6 +8,7 @@ use App\Http\Controllers\dashboard\OfficerController;
 use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
+use App\Http\Controllers\dashboard\SupplyController;
 use Symfony\Component\HttpFoundation\ServerBag;
 
 /*
@@ -45,5 +46,12 @@ Route::controller(ServiceController::class)->middleware('auth')->group(function 
 
 Route::controller(ServiceController::class)->middleware('auth')->group(function () {
     Route::get('child-immunization', 'ImmunizationChild')->name('Immunization');
-    Route::post('child-immunization', 'StoreImmunization')->name( 'store.Immunization' );
+    Route::post('child-immunization', 'StoreImmunization')->name('store.Immunization');
+});
+
+Route::controller(SupplyController::class)->middleware('auth')->group(function () {
+    Route::get('immunization', 'ImmunizationIndex')->name('supplies.Immunization');
+    Route::post('immunization', 'ImmunizationStore')->name('supplies.store.Immunization');
+    Route::delete('immunization/{id}',  'ImmunizationDestroy')->name('supplies.destroy.Immunization');
+    Route::get('immunization/{id}/edit', 'ImmunizationEdit')->name('vaksin.edit');
 });
