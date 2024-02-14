@@ -28,8 +28,10 @@ return new class extends Migration
             // During Immunization
             $table->date('immunization_date')->nullable();
             $table->string('age_at_immunization')->nullable();
-            $table->string('immunization')->nullable();
-            $table->enum('vitamins_a', ['Blue', 'Red'])->nullable();
+            $table->unsignedBigInteger('vaccine_id');
+            $table->foreign('vaccine_id')->references('id')->on('vaccines')->onDelete('cascade');
+            $table->unsignedBigInteger('vitamins_id');
+            $table->foreign('vitamins_id')->references('id')->on('vitamins')->onDelete('cascade');
             $table->string('information_at_immunization')->nullable();
             // For All
             $table->timestamps();

@@ -24,8 +24,8 @@
             <div class="section-header">
                 <h1>Data Vaksin</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Data Master</a></div>
-                    <div class="breadcrumb-item">Bidan</div>
+                    <div class="breadcrumb-item active"><a href="#">Persediaan</a></div>
+                    <div class="breadcrumb-item">Vaksin</div>
                 </div>
             </div>
 
@@ -33,11 +33,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4 class="text-left">Basic DataTables</h4>
-                                <a href="/midwife-data/create" class="btn btn-primary ml-auto"><i class="fas fa-plus"></i>
-                                    Tambah Bidan</a>
-                            </div>
+
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="table-1">
@@ -58,7 +54,7 @@
                                                     <td> {{ $loop->iteration }}</td>
                                                     <td>{{ $vaksin->vaccine_name }}</td>
                                                     <td>
-                                                        @if ($vaksin->for_age_operator == null)
+                                                        @if ($vaksin->for_age_operator == '=')
                                                             {{ $vaksin->for_age_value }}&nbsp;{{ $vaksin->for_age_unit }}
                                                         @else
                                                             {{ $vaksin->for_age_operator }}&nbsp;
@@ -67,17 +63,15 @@
                                                     </td>
                                                     <td>{{ $vaksin->stock }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-warning ml-auto mr-1 btn-edit"
-                                                            data-id="{{ $vaksin->id }}"
-                                                            data-action="{{ route('vaksin.edit', $vaksin->id) }}">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
 
-                                                        <form
-                                                            action="{{ route('supplies.destroy.Immunization', $vaksin->id) }}"
+                                                        <a href="{{ route('immunization.edit', $vaksin) }}"
+                                                            class="btn btn-warning ml-auto mr-1 btn-edit"><i
+                                                                class="fas fa-edit"></i></a>
+
+                                                        <form action="{{ route('immunization.destroy', $vaksin->id) }}"
                                                             method="POST" id="delete-form-{{ $vaksin->id }}"
                                                             class="d-inline">
-                                                            @method('delete')
+                                                            @method('DELETE')
                                                             @csrf
                                                             <button type="submit"
                                                                 class="btn btn-danger mr-1 btn-action del">
@@ -96,56 +90,127 @@
 
                     <div class="col-md-5">
                         <div class="card">
-                            <form action="{{ route('supplies.store.Immunization') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="vaccine_name">Nama Vaksin</label>
-                                        <input id="vaccine_name" type="text" class="form-control" name="vaccine_name"
-                                            autofocus value="{{ old('vaccine_name') }}">
-                                        @error('vaccine_name')
-                                            <span class="text-danger text-small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="for_age_value">Untuk Usia</label>
-                                        <div class="input-group">
-                                            <select class="custom-select selectric" name="for_age_operator"
-                                                id="for_age_operator">
-                                                <option value="=">=</option>
-                                                <option value="<">
-                                                    < </option>
-                                                <option value=">">></option>
-                                            </select>
-                                            <input id="for_age_value" type="number" class="form-control"
-                                                name="for_age_value" value="{{ old('for_age_value') }}">
-                                            <select class="custom-select selectric" name="for_age_unit" id="for_age_unit">
-                                                <option value="hours">Jam</option>
-                                                <option value="days">Hari</option>
-                                                <option value="months">Bulan</option>
-                                                <option value="years">Tahun</option>
-                                            </select>
+                            @if ($vaccine_edit)
+                                <form action="{{ route('immunization.update', $vaccine_edit) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="vaccine_name">Nama Vaksin</label>
+                                            <input id="vaccine_name" type="text" class="form-control" name="vaccine_name"
+                                                autofocus value="{{ old('vaccine_name', $vaccine_edit->vaccine_name) }}">
+                                            @error('vaccine_name')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        @error('for_age_value')
-                                            <span class="text-danger text-small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
 
-                                    <div class="form-group  ">
-                                        <label for="stock">Stock Tersedia</label>
-                                        <input id="stock" type="number" class="form-control" name="stock"
-                                            value="{{ old('stock') }}">
-                                        @error('stock')
-                                            <span class="text-danger text-small">{{ $message }}</span>
-                                        @enderror
+                                        <div class="form-group">
+                                            <label for="for_age_value">Untuk Usia</label>
+                                            <div class="input-group">
+                                                <select class="custom-select selectric" name="for_age_operator"
+                                                    id="for_age_operator">
+                                                    <option value="="
+                                                        {{ old('for_age_operator', $vaccine_edit->for_age_operator ?? '') == '=' ? 'selected' : '' }}>
+                                                        =</option>
+                                                    <option value="<"
+                                                        {{ old('for_age_operator', $vaccine_edit->for_age_operator ?? '') == '<' ? 'selected' : '' }}>
+                                                        << /option>
+                                                    <option value=">"
+                                                        {{ old('for_age_operator', $vaccine_edit->for_age_operator ?? '') == '>' ? 'selected' : '' }}>
+                                                        ></option>
+                                                </select>
+                                                <input id="for_age_value" type="number" class="form-control"
+                                                    name="for_age_value"
+                                                    value="{{ old('for_age_value', $vaccine_edit->for_age_value ?? '') }}">
+                                                <select class="custom-select selectric" name="for_age_unit"
+                                                    id="for_age_unit">
+                                                    <option value="jam"
+                                                        {{ old('for_age_unit', $vaccine_edit->for_age_unit ?? '') == 'jam' ? 'selected' : '' }}>
+                                                        Jam</option>
+                                                    <option value="hari"
+                                                        {{ old('for_age_unit', $vaccine_edit->for_age_unit ?? '') == 'hari' ? 'selected' : '' }}>
+                                                        Hari</option>
+                                                    <option value="bulan"
+                                                        {{ old('for_age_unit', $vaccine_edit->for_age_unit ?? '') == 'bulan' ? 'selected' : '' }}>
+                                                        Bulan</option>
+                                                    <option value="tahun"
+                                                        {{ old('for_age_unit', $vaccine_edit->for_age_unit ?? '') == 'tahun' ? 'selected' : '' }}>
+                                                        Tahun</option>
+                                                </select>
+                                            </div>
+                                            @error('for_age_value')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="stock">Stock Tersedia</label>
+                                            <input id="stock" type="number" class="form-control" name="stock"
+                                                value="{{ old('stock', $vaccine_edit->stock) }}">
+                                            @error('stock')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-footer text-right">
-                                    <button type="submit" class="btn btn-primary">Tambah Vaksin</button>
-                                </div>
-                            </form>
+                                    <div class="card-footer text-right">
+                                        <button type="submit" class="btn btn-primary">Update Vaksin</button>
+                                    </div>
+                                </form>
+                            @else
+                                <form action="{{ route('immunization.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="vaccine_name">Nama Vaksin</label>
+                                            <input id="vaccine_name" type="text" class="form-control" name="vaccine_name"
+                                                autofocus value="{{ old('vaccine_name') }}">
+                                            @error('vaccine_name')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="for_age_value">Untuk Usia</label>
+                                            <div class="input-group">
+                                                <select class="custom-select selectric" name="for_age_operator"
+                                                    id="for_age_operator">
+                                                    <option value="=">=</option>
+                                                    <option value="<">
+                                                        < </option>
+                                                    <option value=">">></option>
+                                                </select>
+                                                <input id="for_age_value" type="number" class="form-control"
+                                                    name="for_age_value" value="{{ old('for_age_value') }}">
+                                                <select class="custom-select selectric" name="for_age_unit"
+                                                    id="for_age_unit">
+                                                    <option value="jam">Jam</option>
+                                                    <option value="hari">Hari</option>
+                                                    <option value="bulan">Bulan</option>
+                                                    <option value="tahun">Tahun</option>
+                                                </select>
+                                            </div>
+                                            @error('for_age_value')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group  ">
+                                            <label for="stock">Stock Tersedia</label>
+                                            <input id="stock" type="number" class="form-control" name="stock"
+                                                value="{{ old('stock') }}">
+                                            @error('stock')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <button type="submit" class="btn btn-primary">Tambah Vaksin</button>
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -157,49 +222,6 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('.btn-edit').on('click', function(e) {
-                e.preventDefault();
-                var vaksinId = $(this).data('id');
-                $.ajax({
-                    url: '/immunization/' + vaksinId + '/edit',
-                    type: 'GET',
-                    success: function(data) {
-                        $('#vaccine_name').val(data.vaccine_name);
-                        $('#for_age_operator').val(data.for_age_operator);
-                        $('#for_age_value').val(data.for_age_value);
-                        $('#for_age_unit').val(data.for_age_unit);
-                        $('#stock').val(data.stock);
-
-                        // Set the form action to the edit route
-                        $('#edit-form').attr('action', '/immunization/' + vaksinId + '/edit');
-
-                        // Change the submit button text
-                        $('.card-footer button[type="submit"]').text('Update Vaksin');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching vaksin data:', error);
-                    }
-                });
-            });
-        });
-
-
-        $(document).ready(function() {
-            // Show the operator dropdown by default
-            $('#for_age_operator').show();
-
-            // Hide the operator dropdown if unit is not 'hours'
-            $('#for_age_unit').on('change', function() {
-                var selectedUnit = $(this).val();
-                if (selectedUnit !== 'hours') {
-                    $('#for_age_operator').hide();
-                } else {
-                    $('#for_age_operator').show();
-                }
-            });
-        });
-
         $(document).ready(function() {
             $('.del').on('click', function(e) {
                 e.preventDefault();

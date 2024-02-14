@@ -9,7 +9,8 @@ use App\Http\Controllers\dashboard\ServiceController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\authentications\LoginController;
 use App\Http\Controllers\dashboard\SupplyController;
-use Symfony\Component\HttpFoundation\ServerBag;
+use App\Http\Controllers\dashboard\VaccineController;
+use App\Http\Controllers\dashboard\VitaminsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,31 +28,48 @@ Route::controller(LoginController::class)->middleware('guest')->group(function (
     Route::get('/', 'index')->name('login');
     Route::post('/', 'authenticate');
 });
-
+// Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Data Master
+// 1. Data Keluarga
 Route::resource('parent-data', ParentController::class)->middleware('auth');
+// 2. Data Anak
 Route::resource('children-data', ChildController::class)->middleware('auth');
+// 3. Data Petugas
 Route::resource('officer-data', OfficerController::class)->middleware('auth');
+// 4. Data Bidan
 Route::resource('midwife-data', MidwifeController::class)->middleware('auth');
 
+// Persediaan Vaksin
+Route::controller(VaccineController::class)->middleware('auth')->group(function () {
+    Route::get('immunization', 'ImmunizationIndex');
+    Route::post('immunization', 'ImmunizationStore')->name('immunization.store');
+    Route::delete('immunization/{id}',  'ImmunizationDestroy')->name('immunization.destroy');
+    Route::get('immunization/{id}/edit', 'ImmunizationEdit')->name('immunization.edit');
+    Route::put('immunization/{id}', 'ImmunizationUpdate')->name('immunization.update');
+});
+
+// Persediaan Vitamin A
+Route::controller(VitaminsController::class)->middleware('auth')->group(function () {
+    Route::get('vitamins', 'VitaminsIndex');
+    Route::post('vitamins', 'VitaminsStore')->name('vitamins.store');
+    Route::delete('vitamins/{id}', 'VitaminsDestroy')->name('vitamins.destroy');
+    Route::get('vitamins/{id}/edit', 'VitaminsEdit')->name('vitamins.edit');
+    Route::put('vatamins/{id}', 'VitaminsUpdate')->name('vitamins.update');
+});
+
+// Layanan Penimbangan Anak
 Route::controller(ServiceController::class)->middleware('auth')->group(function () {
     Route::get('weighing-children', 'WeighingChild')->name('weighing.child');
     Route::post('weighing-children', 'StoreWeighing')->name('store.weighing');
 });
 
+// Layanan Imunisasi Anak
 Route::controller(ServiceController::class)->middleware('auth')->group(function () {
     Route::get('child-immunization', 'ImmunizationChild')->name('Immunization');
     Route::post('child-immunization', 'StoreImmunization')->name('store.Immunization');
-});
-
-Route::controller(SupplyController::class)->middleware('auth')->group(function () {
-    Route::get('immunization', 'ImmunizationIndex')->name('supplies.Immunization');
-    Route::post('immunization', 'ImmunizationStore')->name('supplies.store.Immunization');
-    Route::delete('immunization/{id}',  'ImmunizationDestroy')->name('supplies.destroy.Immunization');
-    Route::get('immunization/{id}/edit', 'ImmunizationEdit')->name('vaksin.edit');
 });

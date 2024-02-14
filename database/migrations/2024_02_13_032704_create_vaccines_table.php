@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('stock');
             $table->unsignedInteger('for_age_value');
             $table->enum('for_age_operator', ['<', '>', '='])->nullable();
-            $table->enum('for_age_unit', ['hours', 'days', 'months', 'years']);
+            $table->enum('for_age_unit', ['jam', 'hari', 'bulan', 'tahun']);
             $table->timestamps();
         });
     }
