@@ -105,7 +105,8 @@
                                             <select name="vaccine_id" id="vaccine_id" class="form-control select2">
                                                 <option value="" selected disabled>-- Jenis Imunisasi --</option>
                                                 @foreach ($vaccine as $vaksin)
-                                                    <option value="{{ $vaksin->id }}">
+                                                    <option value="{{ $vaksin->id }}"
+                                                        data-stock = "{{ $vaksin->stock }}">
                                                         {{ $vaksin->vaccine_name }}
                                                     </option>
                                                 @endforeach
@@ -126,7 +127,8 @@
                                             <select name="vitamins_id" id="vitamins_id" class="form-control select2">
                                                 <option value="" selected disabled>-- Jenis Vitamin --</option>
                                                 @foreach ($vitamins as $vitamin)
-                                                    <option value="{{ $vitamin->id }}">
+                                                    <option value="{{ $vitamin->id }}"
+                                                        data-stock = "{{ $vitamin->stock }}">
                                                         {{ $vitamin->vitamins_name }}
                                                     </option>
                                                 @endforeach
@@ -170,6 +172,20 @@
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('#vaccine_id').change(function() {
+                var selectedOption = $('option:selected', this);
+                var selectedStock = selectedOption.data('stock');
+
+                $('#stock_vaccine').val(selectedStock);
+            });
+
+            $('#vitamins_id').change(function() {
+                var selectedOption = $('option:selected', this);
+                var selectedStock = selectedOption.data('stock');
+
+                $('#stock_vitamin').val(selectedStock);
+            });
+
             $('#child_id').change(function() {
                 var selectedOption = $('option:selected', this);
                 var selectedGender = selectedOption.data('gender');
