@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('immunizations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('child_id');
             $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade');
             $table->date('immunization_date');
             $table->string('age');
             $table->enum('condition', ['Y', 'T']);
-            $table->unsignedBigInteger('vaccine_id');
+            $table->unsignedBigInteger('vaccine_id')->nullable();
             $table->foreign('vaccine_id')->references('id')->on('vaccines')->onDelete('cascade');
-            $table->unsignedBigInteger('vitamins_id');
+            $table->unsignedBigInteger('vitamins_id')->nullable();
             $table->foreign('vitamins_id')->references('id')->on('vitamins')->onDelete('cascade');
             $table->string('information')->nullable();
             $table->timestamps();

@@ -14,4 +14,19 @@ class Immunization extends Model
     {
         return $this->belongsTo(Child::class);
     }
+
+    public function vaccine()
+    {
+        return $this->belongsTo(Vaccine::class);
+    }
+
+    public function vitamins()
+    {
+        return $this->belongsTo(Vitamin::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

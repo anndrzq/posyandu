@@ -45,9 +45,9 @@
                     href="{{ url('child-immunization') }}"><i class="fa-solid fa-syringe"></i><span>Imunisasi
                         Anak</span></a>
             </li>
-            <li class="{{ Request::is('immunization-data*') ? 'active' : '' }}"><a
-                    href="{{ url('immunization-data') }}" class="nav-link"><i
-                        class="fa-solid fa-person-breastfeeding"></i><span>Data Imunisasi</span></a></li>
+            <li class="{{ Request::is('DataImmunization*') ? 'active' : '' }}"><a href="{{ url('DataImmunization') }}"
+                    class="nav-link"><i class="fa-solid fa-person-breastfeeding"></i><span>Data Imunisasi</span></a>
+            </li>
 
         </ul>
     </aside>

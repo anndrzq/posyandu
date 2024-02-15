@@ -45,39 +45,71 @@
                                                 <th class="text-center">
                                                     No
                                                 </th>
-                                                <th>Nama Ibu</th>
                                                 <th>Nama Anak</th>
-                                                <th>Tempat Lahir</th>
-                                                <th>Tanggal Lahir</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>TTL</th>
+                                                <th>Nama Ayah</th>
+                                                <th>Nama Ibu</th>
+                                                <th>Tanggal Imunisasi</th>
+                                                <th>Kondisi</th>
+                                                <th>Jenis Imunisasi</th>
+                                                <th>Vitamin</th>
+                                                <th>Keterangan</th>
+                                                <th>Dilakukan Oleh</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($children as $child)
+                                            @foreach ($immunizations as $imunisasi)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ ucfirst($child->parent->mother_name) }}</td>
-                                                    <td>{{ ucfirst($child->name) }}</td>
-                                                    <td>{{ ucfirst($child->place_of_birth_child) }}</td>
-                                                    <td>{{ date('d F Y', strtotime($child->date_of_birth_child)) }}</td>
+                                                    <td>{{ $imunisasi->child->name }}</td>
                                                     <td>
-                                                        <a href="#" data-toggle="modal"
-                                                            data-target="#exampleModal{{ $child->id }}"
-                                                            class="btn btn-info ml-auto mr-1">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="/children-data/{{ $child->id }}/edit"
-                                                            class="btn btn-warning ml-auto"><i class="fas fa-edit"></i></a>
-                                                        <form action="/children-data/{{ $child->id }}" method="POST"
-                                                            id="delete-form-{{ $child->id }}" class="d-inline">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-danger mr-1 btn-action del">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
+                                                        @if ($imunisasi->child->gender == 'L')
+                                                            Laki-laki
+                                                        @else
+                                                            Perempuan
+                                                        @endif
                                                     </td>
+                                                    <td>{{ $imunisasi->child->place_of_birth_child }},
+                                                        {{ \Carbon\Carbon::parse($imunisasi->child->date_of_birth_child)->format('d F Y') }}
+                                                    </td>
+                                                    <td>{{ $imunisasi->child->parent->father_name }}</td>
+                                                    <td>{{ $imunisasi->child->parent->mother_name }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($imunisasi->immunzation_date)->format('d F Y') }}
+                                                    </td>
+                                                    <td>
+                                                        @if ($imunisasi->condition == 'T')
+                                                            Tidak Bisa Di Vaksin
+                                                        @else
+                                                            Sudah Melakukan Vaksin
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($imunisasi->vaccine_id == null)
+                                                            Belum Dilakukan Imunisasi
+                                                        @else
+                                                            {{ $imunisasi->vaccine->vaccine_name }}
+                                                        @endif
+                                                    </td>
+
+                                                    <td>
+                                                        @if ($imunisasi->vitamins_id == null)
+                                                            Belum Di Beri Vitamin
+                                                        @else
+                                                            {{ $imunisasi->vaccine->vaccine_name }}
+                                                        @endif
+                                                    </td>
+
+                                                    <td>
+                                                        @if ($imunisasi->information == null)
+                                                            Tidak Ada Keterangan
+                                                        @else
+                                                            {{ $imunisasi->information }}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $imunisasi->users->midwife->name }}</td>
+                                                    <td></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

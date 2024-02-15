@@ -9,6 +9,7 @@ use App\Models\Weighing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\Immunization;
 
 class ServiceController extends Controller
 {
@@ -52,6 +53,7 @@ class ServiceController extends Controller
     public function ImmunizationStore(Request $request)
     {
         $data = $request->validate([
+            'user_id' => 'required',
             'child_id' => 'required',
             'age' => 'required',
             'immunization_date' => 'date|required',
@@ -59,9 +61,48 @@ class ServiceController extends Controller
                 'required',
                 Rule::in(['Y', 'T'])
             ],
-            'vaccine_id' => 'required',
-            'vitamins_id' => 'required',
+            'vaccine_id' => 'nullable',
+            'vitamins_id' => 'nullable',
             'information' => 'nullable'
         ]);
+
+        $vaccineId = 'vaccine_id';
+        $vitaminsId = 'vitamins_id';
+
+        $vaccine = isset($data[$vaccineId]) && $data[$vaccineId] ? optional(Vaccine::find($data[$vaccineId]))->first() : null;
+        $vitamins = isset($data[$vitaminsId]) && $data[$vitaminsId] ? optional(Vitamin::find($data[$vitaminsId]))->first() : null;
+
+        if (($vaccine && $vaccine->stock <= 0) && ($vitamins && $vitamins->stock <= 0)) {
+            return redirect()->back()->with('error', 'Stok Vaksin dan Vitamin Habis');
+        }
+
+        if ($vaccine && $vaccine->stock <= 0) {
+            return redirect()->back()->with('error', 'Stok Vaksin Habis');
+        }
+
+        if ($vitamins && $vitamins->stock <= 0) {
+            return redirect()->back()->with('error', 'Stok Vitamin Habis');
+        }
+
+        if ($vaccine) {
+            $vaccine->stock--;
+            $vaccine->save();
+        }
+
+        if ($vitamins) {
+            $vitamins->stock--;
+            $vitamins->save();
+        }
+
+        Immunization::create($data);
+
+        return redirect()->back()->with('success', 'Data immunisasi berhasil disimpan');
+    }
+
+    public function DataImmunizationIndex()
+    {
+        $immunizations = Immunization::all();
+        // dd($immunizations);
+        return view('content.dashboard.service.DataImmunization.index', compact('immunizations'));
     }
 }

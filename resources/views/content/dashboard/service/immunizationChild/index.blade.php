@@ -10,13 +10,22 @@
 @endpush
 
 @section('main')
+
+    @if (session('success'))
+        <div class="flash-data" data-flashdata="{{ session('success') }}"></div>
+    @endif
+
+    @if (session('error'))
+        <div class="error-data" data-errordata="{{ session('error') }}"></div>
+    @endif
+
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Penimbangan Anak</h1>
+                <h1>Data Imunisasi Anak</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item"><a href="#">Layanan</a></div>
-                    <div class="breadcrumb-item">Data Penimbangan Anak</div>
+                    <div class="breadcrumb-item">Data Imunisasi Anak</div>
                 </div>
             </div>
 
@@ -24,10 +33,12 @@
                 <div class="row">
                     <div class="col-12 ">
                         <div class="card">
-                            <form action="{{ route('store.weighing') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('store.Immunization') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
+                                        <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+
                                         <div class="form-group col-6">
                                             <label for="child_id">Nama Anak</label>
                                             <select name="child_id" id="child_id" class="form-control select2">
@@ -107,7 +118,12 @@
                                                 @foreach ($vaccine as $vaksin)
                                                     <option value="{{ $vaksin->id }}"
                                                         data-stock = "{{ $vaksin->stock }}">
-                                                        {{ $vaksin->vaccine_name }}
+                                                        @if ($vaksin->stock == '0')
+                                                            (Stock Habis)
+                                                            &nbsp;{{ $vaksin->vaccine_name }}
+                                                        @else
+                                                            {{ $vaksin->vaccine_name }}
+                                                        @endif
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -129,7 +145,12 @@
                                                 @foreach ($vitamins as $vitamin)
                                                     <option value="{{ $vitamin->id }}"
                                                         data-stock = "{{ $vitamin->stock }}">
-                                                        {{ $vitamin->vitamins_name }}
+                                                        @if ($vitamin->stock == '0')
+                                                            (Stock Habis)
+                                                            &nbsp;{{ $vitamin->vitamins_name }}
+                                                        @else
+                                                            {{ $vitamin->vitamins_name }}
+                                                        @endif
                                                     </option>
                                                 @endforeach
                                             </select>

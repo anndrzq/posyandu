@@ -13,6 +13,6 @@ class Midwife extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'midwife_id');
+        return $this->hasMany(User::class, 'midwife_id', 'id');
     }
 }

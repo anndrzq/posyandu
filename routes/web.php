@@ -71,5 +71,7 @@ Route::controller(ServiceController::class)->middleware('auth')->group(function 
 // Layanan Imunisasi Anak
 Route::controller(ServiceController::class)->middleware('auth')->group(function () {
     Route::get('child-immunization', 'ImmunizationChild')->name('Immunization');
-    Route::post('child-immunization', 'StoreImmunization')->name('store.Immunization');
+    Route::post('child-immunization', 'ImmunizationStore')->name('store.Immunization');
 });
+
+Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('auth');
