@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceChild extends Model
+class Immunization extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
 
     public function child()

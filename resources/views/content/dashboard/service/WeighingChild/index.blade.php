@@ -68,10 +68,10 @@
                                             </div>
 
                                             <div class="form-group col-6">
-                                                <label for="age_at_weighing">Usia</label>
-                                                <input id="age_at_weighing" type="text" class="form-control"
-                                                    name="age_at_weighing" value="{{ old('age_at_weighing') }}" readonly>
-                                                @error('age_at_weighing')
+                                                <label for="age">Usia</label>
+                                                <input id="age" type="text" class="form-control" name="age"
+                                                    value="{{ old('age') }}" readonly>
+                                                @error('age')
                                                     <span class="text-danger text-small">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -86,19 +86,18 @@
                                             </div>
 
                                             <div class="form-group col-6">
-                                                <label for="body_weight_at_weighing">Berat Badan (BB)</label>
-                                                <input id="body_weight_at_weighing" type="number" class="form-control"
-                                                    name="body_weight_at_weighing">
-                                                @error('body_weight_at_weighing')
+                                                <label for="body_weight">Berat Badan (BB)</label>
+                                                <input id="body_weight" type="number" class="form-control"
+                                                    name="body_weight">
+                                                @error('body_weight')
                                                     <span class="text-danger text-small">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="form-group col-6">
-                                                <label for="height_at_weighing">Tinggi Badan (TB)</label>
-                                                <input id="height_at_weighing" type="number" class="form-control"
-                                                    name="height_at_weighing">
-                                                @error('height_at_weighing')
+                                                <label for="height">Tinggi Badan (TB)</label>
+                                                <input id="height" type="number" class="form-control" name="height">
+                                                @error('height')
                                                     <span class="text-danger text-small">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -124,9 +123,9 @@
                                             </div>
 
                                             <div class="form-group col-6" id="keterangan-container" style="display: none;">
-                                                <label for="information_at_weighing">Keterangan</label>
+                                                <label for="information">Keterangan</label>
                                                 <div>
-                                                    <textarea class="summernote-simple" id="information_at_weighing" name="information_at_weighing"></textarea>
+                                                    <textarea class="summernote-simple" id="information" name="information"></textarea>
                                                 </div>
                                             </div>
 
@@ -148,7 +147,6 @@
         <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
         <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-        <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -174,7 +172,7 @@
                     $('#mother').val(selectedMother);
                     $('#father').val(selectedFather);
                     $('#birthdate').val(formattedBirthdate);
-                    $('#age_at_weighing').val(formatAge(age));
+                    $('#age').val(formatAge(age));
                 });
 
                 function formatDate(date) {
@@ -231,7 +229,7 @@
                     var selectedValue = $(this).val();
 
                     // Menampilkan atau menyembunyikan elemen keterangan berdasarkan nilai dropdown
-                    if (selectedValue === 'P') {
+                    if (selectedValue === 'T') {
                         $('#keterangan-container').show();
                     } else {
                         $('#keterangan-container').hide();

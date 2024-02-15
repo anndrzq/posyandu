@@ -10,4 +10,9 @@ class Vaccine extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function Immunization()
+    {
+        return $this->hasMany(Immunization::class);
+    }
 }

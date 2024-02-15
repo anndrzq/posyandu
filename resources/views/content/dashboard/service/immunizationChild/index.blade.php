@@ -67,11 +67,10 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="age_at_immunization">Usia</label>
-                                            <input id="age_at_immunization" type="text" class="form-control"
-                                                name="age_at_immunization" value="{{ old('age_at_immunization') }}"
-                                                readonly>
-                                            @error('age_at_immunization')
+                                            <label for="age">Usia</label>
+                                            <input id="age" type="text" class="form-control" name="age"
+                                                value="{{ old('age') }}" readonly>
+                                            @error('age')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -86,35 +85,69 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="vitamins_a">Vitamin A</label>
-                                            <select name="vitamins_a" id="vitamins_a" class="form-control selectric">
-                                                <option value="" selected disabled>-- Vitamin --
+                                            <label for="condition">Kondisi</label>
+                                            <select name="condition" id="condition" class="form-control selectric">
+                                                <option value="" selected disabled>-- Pilih Kondisi --</option>
+                                                <option value="Y" {{ old('condition') == 'Y' ? 'selected' : '' }}>
+                                                    Bisa Di Vaksin
                                                 </option>
-                                                <option value="Red" {{ old('vitamins_a') == 'Red' ? 'selected' : '' }}>
-                                                    Merah
-                                                </option>
-                                                <option value="Blue" {{ old('vitamins_a') == 'Blue' ? 'selected' : '' }}>
-                                                    Biru
+                                                <option value="T" {{ old('condition') == 'T' ? 'selected' : '' }}>
+                                                    Tidak Bisa Di Vaksin
                                                 </option>
                                             </select>
-                                            @error('vitamins_a')
+                                            @error('condition')
                                                 <span class="text-danger text-small">{{ $message }}</span>
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-6">
-                                            <label for="information_at_weighing">Keterangan</label>
+                                        <div class="form-group col-6 vaccine-section">
+                                            <label for="vaccine_id">Imunisasi</label>
+                                            <select name="vaccine_id" id="vaccine_id" class="form-control select2">
+                                                <option value="" selected disabled>-- Jenis Imunisasi --</option>
+                                                @foreach ($vaccine as $vaksin)
+                                                    <option value="{{ $vaksin->id }}">
+                                                        {{ $vaksin->vaccine_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('vaccine_id')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+
+                                        <div class="form-group col-6 stock-vaccine-section">
+                                            <label for="stock_vaccine">Stock Vaksin</label>
+                                            <input id="stock_vaccine" type="text" class="form-control" readonly>
+                                        </div>
+
+                                        <div class="form-group col-6 vitamin-section">
+                                            <label for="vitamins_id">Vitamin</label>
+                                            <select name="vitamins_id" id="vitamins_id" class="form-control select2">
+                                                <option value="" selected disabled>-- Jenis Vitamin --</option>
+                                                @foreach ($vitamins as $vitamin)
+                                                    <option value="{{ $vitamin->id }}">
+                                                        {{ $vitamin->vitamins_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('vitamins_id')
+                                                <span class="text-danger text-small">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-6 stock-vitamin-section">
+                                            <label for="stock_vitamin">Stock Vitamin</label>
+                                            <input id="stock_vitamin" type="text" class="form-control" readonly>
+                                        </div>
+
+                                        <div class="form-group col-6 keterangan-section">
+                                            <label for="information">Keterangan</label>
                                             <div>
-                                                <textarea class="summernote-simple" id="information_at_weighing" name="information_at_weighing"></textarea>
+                                                <textarea class="summernote-simple" id="information" name="information"></textarea>
                                             </div>
                                         </div>
 
-                                        {{-- <div class="form-group col-6" id="keterangan-container" style="display: none;">
-                                            <label for="information_at_weighing">Keterangan</label>
-                                            <div>
-                                                <textarea class="summernote-simple" id="information_at_weighing" name="information_at_weighing"></textarea>
-                                            </div>
-                                        </div> --}}
 
                                     </div>
                                 </div>
@@ -134,7 +167,6 @@
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -160,7 +192,7 @@
                 $('#mother').val(selectedMother);
                 $('#father').val(selectedFather);
                 $('#birthdate').val(formattedBirthdate);
-                $('#age_at_immunization').val(formatAge(age));
+                $('#age').val(formatAge(age));
             });
 
             function formatDate(date) {
@@ -210,19 +242,30 @@
             }
         });
 
-        // $(document).ready(function() {
-        //     // Menggunakan event change untuk mendeteksi perubahan pada dropdown Perkembangan
-        //     $('#in_accordance').change(function() {
-        //         // Mendapatkan nilai dropdown yang dipilih
-        //         var selectedValue = $(this).val();
+        $(document).ready(function() {
+            // Menggunakan event change untuk mendeteksi perubahan pada dropdown "Kondisi"
+            $('#condition').change(function() {
+                // Mendapatkan nilai dropdown yang dipilih
+                var selectedCondition = $(this).val();
 
-        //         // Menampilkan atau menyembunyikan elemen keterangan berdasarkan nilai dropdown
-        //         if (selectedValue === 'P') {
-        //             $('#keterangan-container').show();
-        //         } else {
-        //             $('#keterangan-container').hide();
-        //         }
-        //     });
-        // });
+                // Menampilkan atau menyembunyikan elemen-elemen berdasarkan nilai dropdown
+                if (selectedCondition === 'Y') {
+                    $('.vaccine-section').show();
+                    $('.stock-vaccine-section').show();
+                    $('.vitamin-section').show();
+                    $('.stock-vitamin-section').show();
+                    $('.keterangan-section').show();
+                } else {
+                    $('.vaccine-section').hide();
+                    $('.stock-vaccine-section').hide();
+                    $('.vitamin-section').hide();
+                    $('.stock-vitamin-section').hide();
+                    $('.keterangan-section').hide();
+                }
+            });
+
+            // Inisialisasi berdasarkan kondisi awal
+            $('#condition').trigger('change');
+        });
     </script>
 @endpush

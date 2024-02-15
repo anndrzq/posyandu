@@ -16,8 +16,13 @@ class Child extends Model
         return $this->belongsTo(family::class, 'family_id');
     }
 
-    public function serviceChild()
+    public function Weighing()
     {
-        return $this->hasMany(ServiceChild::class);
+        return $this->hasMany(Weighing::class);
+    }
+
+    public function Immunization()
+    {
+        return $this->hasMany(Immunization::class);
     }
 }
