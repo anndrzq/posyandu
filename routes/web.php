@@ -75,3 +75,4 @@ Route::controller(ServiceController::class)->middleware('auth')->group(function 
 });
 
 Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('auth');
+Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('auth');

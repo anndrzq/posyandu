@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Immunization::class);
     }
+
+    public function weighing()
+    {
+        return $this->belongsTo(Weighing::class);
+    }
 }

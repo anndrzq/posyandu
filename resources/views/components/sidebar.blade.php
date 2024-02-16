@@ -27,6 +27,14 @@
             <li class="{{ Request::is('midwife-data*') ? 'active' : '' }}"><a href="{{ url('midwife-data') }}"
                     class="nav-link"><i class="fa-solid fa-user-nurse"></i><span>Data Bidan</span></a></li>
 
+            <li class="menu-header">Data Pelayanan</li>
+            <li class="{{ Request::is('DataImmunization*') ? 'active' : '' }}"><a href="{{ url('DataImmunization') }}"
+                    class="nav-link"><i class="fa-solid fa-person-breastfeeding"></i><span>Data Imunisasi</span></a>
+            </li>
+            <li class="{{ Request::is('DataWeighing*') ? 'active' : '' }}"><a href="{{ url('DataWeighing') }}"
+                    class="nav-link"><i class="fa-solid fa-scale-unbalanced-flip"></i><span>Data Penimbangan</span></a>
+            </li>
+
             <li class="menu-header">Persediaan</li>
             <li class="{{ Request::is('immunization*') ? 'active' : '' }}"><a class="nav-link"
                     href="{{ url('immunization') }}"><i class="fa-solid fa-suitcase-medical"></i>
@@ -44,9 +52,6 @@
             <li class="{{ Request::is('child-immunization*') ? 'active' : '' }}"><a class="nav-link"
                     href="{{ url('child-immunization') }}"><i class="fa-solid fa-syringe"></i><span>Imunisasi
                         Anak</span></a>
-            </li>
-            <li class="{{ Request::is('DataImmunization*') ? 'active' : '' }}"><a href="{{ url('DataImmunization') }}"
-                    class="nav-link"><i class="fa-solid fa-person-breastfeeding"></i><span>Data Imunisasi</span></a>
             </li>
 
         </ul>

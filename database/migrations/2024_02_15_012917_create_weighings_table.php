@@ -16,6 +16,8 @@ return new class extends Migration
     {
         Schema::create('weighings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('child_id');
             $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade');
             $table->date('weigh_date');

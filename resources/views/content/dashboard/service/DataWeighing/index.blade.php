@@ -45,65 +45,66 @@
                                                 <th>TTL</th>
                                                 <th>Nama Ayah</th>
                                                 <th>Nama Ibu</th>
-                                                <th>Tanggal Imunisasi</th>
-                                                <th>Kondisi</th>
-                                                <th>Jenis Imunisasi</th>
-                                                <th>Vitamin</th>
+                                                <th>Tanggal Penimbangan</th>
+                                                <th>Perkembangan</th>
+                                                <th>Berat Badan</th>
+                                                <th>Tinggi Badan</th>
                                                 <th>Keterangan</th>
                                                 <th>Dilakukan Oleh</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($immunizations as $imunisasi)
+                                            @foreach ($weighing as $penimbangan)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $imunisasi->child->name }}</td>
+                                                    <td>{{ $penimbangan->child->name }}</td>
                                                     <td>
-                                                        @if ($imunisasi->child->gender == 'L')
+                                                        @if ($penimbangan->child->gender == 'L')
                                                             Laki-laki
                                                         @else
                                                             Perempuan
                                                         @endif
                                                     </td>
-                                                    <td>{{ $imunisasi->child->place_of_birth_child }},
-                                                        {{ \Carbon\Carbon::parse($imunisasi->child->date_of_birth_child)->format('d F Y') }}
+                                                    <td>{{ $penimbangan->child->place_of_birth_child }},
+                                                        {{ \Carbon\Carbon::parse($penimbangan->child->date_of_birth_child)->format('d F Y') }}
                                                     </td>
-                                                    <td>{{ $imunisasi->child->parent->father_name }}</td>
-                                                    <td>{{ $imunisasi->child->parent->mother_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($imunisasi->immunzation_date)->format('d F Y') }}
+                                                    <td>{{ $penimbangan->child->parent->father_name }}</td>
+                                                    <td>{{ $penimbangan->child->parent->mother_name }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($penimbangan->weighing_date)->format('d F Y') }}
                                                     </td>
                                                     <td>
-                                                        @if ($imunisasi->condition == 'T')
-                                                            Tidak Bisa Di Vaksin
+                                                        @if ($penimbangan->in_accordance == 'Y')
+                                                            Sesuai
                                                         @else
-                                                            Sudah Melakukan Vaksin
+                                                            Tidak Sesuai
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if ($imunisasi->vaccine_id == null)
-                                                            Belum Dilakukan Imunisasi
-                                                        @else
-                                                            {{ $imunisasi->vaccine->vaccine_name }}
-                                                        @endif
+                                                        {{ $penimbangan->body_weight }}
                                                     </td>
 
                                                     <td>
-                                                        @if ($imunisasi->vitamins_id == null)
-                                                            Belum Di Beri Vitamin
-                                                        @else
-                                                            {{ $imunisasi->vaccine->vaccine_name }}
-                                                        @endif
+                                                        {{ $penimbangan->height }}
                                                     </td>
 
                                                     <td>
-                                                        @if ($imunisasi->information == null)
+                                                        @if ($penimbangan->information == null)
                                                             Tidak Ada Keterangan
                                                         @else
-                                                            {{ $imunisasi->information }}
+                                                            {{ $penimbangan->information }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $imunisasi->users->midwife->name }}</td>
+                                                    <td>
+                                                        @if ($penimbangan->users->officer_id != null)
+                                                            {{ $penimbangan->users->officer->name }}
+                                                        @elseif ($penimbangan->users->midwife != null)
+                                                            {{ $penimbangan->users->midwife->name }}
+                                                        @else
+                                                            Tidak Di Ketahui
+                                                        @endif
+                                                    </td>
+
                                                     <td></td>
                                                 </tr>
                                             @endforeach

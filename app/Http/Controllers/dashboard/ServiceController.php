@@ -22,6 +22,7 @@ class ServiceController extends Controller
     public function StoreWeighing(Request $request)
     {
         $data = $request->validate([
+            'user_id' => 'required',
             'child_id' => 'required',
             'weigh_date' => 'required|date',
             'age' => 'required',
@@ -39,7 +40,7 @@ class ServiceController extends Controller
         $serviceChild->fill($data);
         $serviceChild->save();
 
-        return redirect('dashboard')->with('success', 'Anda Berhasil Mengirimkan Data');
+        return redirect('DataWeighing')->with('success', 'Anda Berhasil Mengirimkan Data');
     }
 
     public function ImmunizationChild()
@@ -96,7 +97,7 @@ class ServiceController extends Controller
 
         Immunization::create($data);
 
-        return redirect()->back()->with('success', 'Data immunisasi berhasil disimpan');
+        return redirect('DataImmunization')->with('success', 'Data immunisasi berhasil disimpan');
     }
 
     public function DataImmunizationIndex()
@@ -104,5 +105,11 @@ class ServiceController extends Controller
         $immunizations = Immunization::all();
         // dd($immunizations);
         return view('content.dashboard.service.DataImmunization.index', compact('immunizations'));
+    }
+
+    public function DataWeighing()
+    {
+        $weighing = Weighing::all();
+        return view('content.dashboard.service.DataWeighing.index', compact('weighing'));
     }
 }

@@ -14,4 +14,9 @@ class Weighing extends Model
     {
         return $this->belongsTo(Child::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

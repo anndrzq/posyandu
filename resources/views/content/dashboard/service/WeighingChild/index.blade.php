@@ -28,6 +28,9 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
+                                            <input type="hidden" id="user_id" name="user_id"
+                                                value="{{ Auth::user()->id }}">
+
                                             <div class="form-group col-6">
                                                 <label for="child_id">Nama Anak</label>
                                                 <select name="child_id" id="child_id" class="form-control select2">
@@ -122,7 +125,8 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-group col-6" id="keterangan-container" style="display: none;">
+                                            <div class="form-group col-6" id="keterangan-container"
+                                                style="display: none;">
                                                 <label for="information">Keterangan</label>
                                                 <div>
                                                     <textarea class="summernote-simple" id="information" name="information"></textarea>
