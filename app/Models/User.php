@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Weighing::class);
     }
+
+    public static function countAdmin()
+    {
+        return self::where('role', 'admin')->count();
+    }
 }

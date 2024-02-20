@@ -21,4 +21,9 @@ class family extends Model
     {
         return $this->hasMany(Child::class, 'familu_id');
     }
+
+    public static function countParent()
+    {
+        return self::count();
+    }
 }

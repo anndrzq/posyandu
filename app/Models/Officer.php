@@ -15,4 +15,9 @@ class Officer extends Model
     {
         return $this->hasMany(User::class, 'officer_id');
     }
+
+    public static function countOfficer()
+    {
+        return self::count();
+    }
 }

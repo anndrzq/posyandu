@@ -15,4 +15,9 @@ class Midwife extends Model
     {
         return $this->hasMany(User::class, 'midwife_id', 'id');
     }
+
+    public static function countMidwife()
+    {
+        return self::count();
+    }
 }

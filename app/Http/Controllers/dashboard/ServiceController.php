@@ -35,10 +35,7 @@ class ServiceController extends Controller
             'information' => 'nullable'
         ]);
 
-        // Ambil Objek dari ServiceChild
-        $serviceChild = Weighing::firstOrNew(['child_id' => $data['child_id']]);
-        $serviceChild->fill($data);
-        $serviceChild->save();
+        Weighing::create($data);
 
         return redirect('DataWeighing')->with('success', 'Anda Berhasil Mengirimkan Data');
     }
