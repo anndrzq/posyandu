@@ -11,7 +11,7 @@ use App\Http\Controllers\dashboard\VitaminsController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\ComplaintsController;
 use App\Http\Controllers\authentications\LoginController;
-
+use App\Http\Controllers\dashboard\ComplaintsAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,5 +82,11 @@ Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middlewa
 //Pengaduan Saya
 Route::resource('my-complaint', ComplaintsController::class)->middleware('auth');
 
-
 // Daftar Pengaduan Admin
+Route::controller(ComplaintsAdmin::class)->middleware('auth')->group(function () {
+    Route::get('complaint-message', 'index');
+    Route::get('complaint-message/{id}', 'show')->name('complaint.show');
+    Route::put('complaint-message/{complaints}/process', 'process')->name('complaint.process');
+    Route::put('complaint-message/{complaints}/finished', 'finished')->name('complaint.finished');
+    Route::put('complaint-message/{complaints}/reject', 'reject')->name('complaint.reject');
+});
