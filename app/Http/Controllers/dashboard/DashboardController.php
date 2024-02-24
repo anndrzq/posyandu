@@ -49,6 +49,6 @@ class DashboardController extends Controller
         $weighingData = Weighing::whereIn('child_id', $childIds)->get();
 
         // dd($childData);
-        return view('content.dashboard.dashboard', compact('totalAdmin', 'totalUser', 'totalOfficer', 'totalMidwife', 'dailyTotalsY', 'dailyTotalsT', 'TotalsWeighingY', 'TotalsWeighingT', 'weighingData', 'childData'));
+        return view('content.dashboard.dashboard', compact('totalAdmin', 'totalChild', 'totalUser', 'totalOfficer', 'totalMidwife', 'dailyTotalsY', 'dailyTotalsT', 'TotalsWeighingY', 'TotalsWeighingT', 'weighingData', 'childData'));
     }
 }

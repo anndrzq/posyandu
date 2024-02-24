@@ -210,8 +210,9 @@
                         Hi, {{ Auth::user()->officer->name }}
                     @elseif (Auth::user()->midwife_id != null)
                         Hi, Dr. {{ Auth::user()->midwife->name }}
+                    @else
+                        Hi, Admin
                     @endif
-
                 </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

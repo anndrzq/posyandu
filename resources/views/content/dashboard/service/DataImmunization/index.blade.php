@@ -103,7 +103,13 @@
                                                             {{ $imunisasi->information }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $imunisasi->users->midwife->name }}</td>
+                                                    <td>
+                                                        @if ($imunisasi->users->midwife_id != null)
+                                                            {{ $imunisasi->users->midwife->name }}
+                                                        @elseif ($imunisasi->users->role == 'admin')
+                                                            Admin
+                                                        @endif
+                                                    </td>
                                                     <td></td>
                                                 </tr>
                                             @endforeach

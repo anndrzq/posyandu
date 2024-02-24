@@ -54,33 +54,31 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($midwives as $midwife)
-                                                @if ($midwife->users->first()->role = 'midwife')
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td class="user-name">
-                                                            {{ $midwife->users->first() ? $midwife->users->first()->username : 'N/A' }}
-                                                        </td>
-                                                        <td>{{ $midwife->nip }}</td>
-                                                        <td>{{ $midwife->name }}</td>
-                                                        <td>{{ $midwife->gender }}</td>
-                                                        <td>
-                                                            <a href="#" data-toggle="modal"
-                                                                data-target="#exampleModal{{ $midwife->id }}"
-                                                                class="btn btn-info ml-auto mr-1">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                            <form action="/midwife-data/{{ $midwife->id }}" method="POST"
-                                                                id="delete-form-{{ $midwife->id }}" class="d-inline">
-                                                                @method('delete')
-                                                                @csrf
-                                                                <button type="submit"
-                                                                    class="btn btn-danger mr-1 btn-action del">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td class="user-name">
+                                                        {{ $midwife->users->first() ? $midwife->users->first()->username : 'N/A' }}
+                                                    </td>
+                                                    <td>{{ $midwife->nip }}</td>
+                                                    <td>{{ $midwife->name }}</td>
+                                                    <td>{{ $midwife->gender }}</td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#exampleModal{{ $midwife->id }}"
+                                                            class="btn btn-info ml-auto mr-1">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <form action="/midwife-data/{{ $midwife->id }}" method="POST"
+                                                            id="delete-form-{{ $midwife->id }}" class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-1 btn-action del">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -94,75 +92,73 @@
     </div>
 
     @foreach ($midwives as $midwife)
-        @if ($midwife->users->first()->role == 'midwife')
-            <div class="modal fade" id="exampleModal{{ $midwife->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="exampleModalLabel">Detail
-                                Bidan</h5>
-                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        <div class="modal fade" id="exampleModal{{ $midwife->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail
+                            Bidan</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Single column layout -->
+                                <dl class="row">
+                                    <dt class="col-sm-4">Nomor Induk Keluarga
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->nik ?? 'N/A' }}</dd>
+
+                                    <dt class="col-sm-4">Nomor Induk Pokok</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->nip ?? 'N/A' }}</dd>
+
+                                    <dt class="col-sm-4">Nama Bidan</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->name ?? 'N/A' }}</dd>
+
+                                    <dt class="col-sm-4">Tempat Lahir</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->place_of_birth ?? 'N/A' }}
+                                    </dd>
+
+                                    <dt class="col-sm-4">Tanggal Lahir</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->date_of_birth ? \Carbon\Carbon::parse($midwife->date_of_birth)->format('d F Y') : 'N/A' }}
+                                    </dd>
+
+                                    <dt class="col-sm-4">Jenis Kelamin</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->gender ?? 'N/A' }}</dd>
+
+                                    <dt class="col-sm-4">Alamat</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->address ?? 'N/A' }}</dd>
+
+                                    <dt class="col-sm-4">Pendidikan Terakhir
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->last_educations ?? 'N/A' }}
+                                    </dd>
+
+                                    <dt class="col-sm-4">Nomor Telefon</dt>
+                                    <dd class="col-sm-8">
+                                        :{{ $midwife->phone_number ?? 'N/A' }}
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- Single column layout -->
-                                    <dl class="row">
-                                        <dt class="col-sm-4">Nomor Induk Keluarga
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->nik ?? 'N/A' }}</dd>
-
-                                        <dt class="col-sm-4">Nomor Induk Pokok</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->nip ?? 'N/A' }}</dd>
-
-                                        <dt class="col-sm-4">Nama Bidan</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->name ?? 'N/A' }}</dd>
-
-                                        <dt class="col-sm-4">Tempat Lahir</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->place_of_birth ?? 'N/A' }}
-                                        </dd>
-
-                                        <dt class="col-sm-4">Tanggal Lahir</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->date_of_birth ? \Carbon\Carbon::parse($midwife->date_of_birth)->format('d F Y') : 'N/A' }}
-                                        </dd>
-
-                                        <dt class="col-sm-4">Jenis Kelamin</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->gender ?? 'N/A' }}</dd>
-
-                                        <dt class="col-sm-4">Alamat</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->address ?? 'N/A' }}</dd>
-
-                                        <dt class="col-sm-4">Pendidikan Terakhir
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->last_educations ?? 'N/A' }}
-                                        </dd>
-
-                                        <dt class="col-sm-4">Nomor Telefon</dt>
-                                        <dd class="col-sm-8">
-                                            :{{ $midwife->phone_number ?? 'N/A' }}
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                         </div>
                     </div>
                 </div>
             </div>
-        @endif
+        </div>
     @endforeach
 @endsection
 
