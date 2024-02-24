@@ -25,4 +25,14 @@ class Child extends Model
     {
         return $this->hasMany(Immunization::class);
     }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaints::class);
+    }
+
+    public static function countChild()
+    {
+        return self::count();
+    }
 }

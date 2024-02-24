@@ -55,7 +55,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($parents as $parent)
-                                                @if ($parent->users->first()->role == 'parents')
+                                                @if ($parent->users->first()->family_id != null)
                                                     <tr>
                                                         <td>
                                                             {{ $loop->iteration }}

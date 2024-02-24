@@ -12,6 +12,7 @@
                 <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-fire"></i>
                     <span>Dashboard</span></a>
             </li>
+
             {{-- @if (auth()->check() && (auth()->user()->role == 'admin' || auth()->user()->role == 'employee')) --}}
             <li class="menu-header">Data Master</li>
             <li class="{{ Request::is('parent-data*') ? 'active' : '' }}"><a class="nav-link"
@@ -59,6 +60,24 @@
                         Anak</span></a>
             </li>
             {{-- @endif --}}
+
+            <li class="menu-header">Pengaduan</li>
+            <li class="{{ Request::is('my-complaint*') && !Request::is('my-complaint/create') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('my-complaint') }}">
+                    <i class="fa-solid fa-book-journal-whills"></i>
+                    <span>Pengaduan Saya</span>
+                </a>
+            </li>
+
+            <li class="{{ Request::is('my-complaint/create') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('my-complaint/create') }}"><i class="fa-solid fa-file-circle-plus"></i><span>Buat
+                        Pengaduan</span></a>
+            </li>
+            <li class="{{ Request::is('complaint-message*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('complaint-message') }}"><i class="fa-solid fa-square-envelope"></i><span>Daftar
+                        Pengaduan</span></a>
+            </li>
+
         </ul>
 
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">

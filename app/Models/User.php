@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return self::where('role', 'admin')->count();
     }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaints::class);
+    }
 }

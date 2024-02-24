@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Models\User;
+use App\Models\Child;
+use App\Models\family;
+use App\Models\Midwife;
+use App\Models\Officer;
 use App\Models\Weighing;
 use App\Models\Immunization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\family;
-use App\Models\Midwife;
-use App\Models\Officer;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -19,6 +21,7 @@ class DashboardController extends Controller
         $totalUser = family::countParent();
         $totalOfficer = Officer::countOfficer();
         $totalMidwife = Midwife::countMidwife();
+        $totalChild = Child::countChild();
 
         $vaccineData = Immunization::whereIn('condition', ['Y', 'T'])->get();
         $groupedData = $vaccineData->groupBy('immunization_date');
@@ -39,7 +42,13 @@ class DashboardController extends Controller
             $TotalsWeighingT[$date] = $group->where('in_accordance', 'T')->count();
         }
 
-        // dd($dailyTotals);
-        return view('content.dashboard.dashboard', compact('totalAdmin', 'totalUser', 'totalOfficer', 'totalMidwife', 'dailyTotalsY', 'dailyTotalsT', 'TotalsWeighingY', 'TotalsWeighingT'));
+        $familyId = Auth::user()->family_id;
+
+        $childData = Child::where('family_id', $familyId)->get();
+        $childIds = $childData->pluck('id');
+        $weighingData = Weighing::whereIn('child_id', $childIds)->get();
+
+        // dd($childData);
+        return view('content.dashboard.dashboard', compact('totalAdmin', 'totalUser', 'totalOfficer', 'totalMidwife', 'dailyTotalsY', 'dailyTotalsT', 'TotalsWeighingY', 'TotalsWeighingT', 'weighingData', 'childData'));
     }
 }

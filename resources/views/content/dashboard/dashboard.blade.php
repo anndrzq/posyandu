@@ -6,6 +6,8 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.min.css') }}">
+
+    <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
 @endpush
 
 @section('main')
@@ -91,7 +93,7 @@
                             <h4>Grafik Total Immunisasi Harian</h4>
                         </div>
                         <div class="card-body">
-                            <canvas id="myChart2"></canvas>
+                            <canvas id="myChartImunization"></canvas>
                         </div>
                     </div>
                 </div>
@@ -101,10 +103,158 @@
                             <h4>Grafik Total Penimbangan Harian</h4>
                         </div>
                         <div class="card-body">
-                            <canvas id="myChart3"></canvas>
+                            <canvas id="myChartWeight"></canvas>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                @if (count($childData) > 0)
+                    @foreach ($childData as $key => $child)
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Berat Badan - Anak {{ $child->name }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myChart{{ $key + 1 }}"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("myChart{{ $key + 1 }}").getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: [
+                                                    @foreach ($weighingData as $data)
+                                                        @if ($data->child_id == $child->id)
+                                                            "{{ $data->weigh_date }}",
+                                                        @endif
+                                                    @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: 'Berat Badan',
+                                                    data: [
+                                                        @foreach ($weighingData as $data)
+                                                            @if ($data->child_id == $child->id)
+                                                                {{ $data->body_weight }},
+                                                            @endif
+                                                        @endforeach
+                                                    ],
+                                                    borderWidth: 2,
+                                                    backgroundColor: '#6777ef',
+                                                    borderColor: '#6777ef',
+                                                    borderWidth: 2.5,
+                                                    pointBackgroundColor: '#ffffff',
+                                                    pointRadius: 4
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: true,
+                                                    position: 'bottom'
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        gridLines: {
+                                                            drawBorder: false,
+                                                            color: '#f2f2f2',
+                                                        },
+                                                        ticks: {
+                                                            beginAtZero: true,
+                                                            stepSize: 10
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        ticks: {
+                                                            display: false
+                                                        },
+                                                        gridLines: {
+                                                            display: false
+                                                        }
+                                                    }]
+                                                },
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+
+            <div class="row">
+                @if (count($childData) > 0)
+                    @foreach ($childData as $key => $child)
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Tinggi Badan - Anak {{ $child->name }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myChartheight{{ $key + 1 }}"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("myChartheight{{ $key + 1 }}").getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: [
+                                                    @foreach ($weighingData as $data)
+                                                        @if ($data->child_id == $child->id)
+                                                            "{{ $data->weigh_date }}",
+                                                        @endif
+                                                    @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: 'Tinggi Badan',
+                                                    data: [
+                                                        @foreach ($weighingData as $data)
+                                                            @if ($data->child_id == $child->id)
+                                                                {{ $data->height }},
+                                                            @endif
+                                                        @endforeach
+                                                    ],
+                                                    borderWidth: 2,
+                                                    backgroundColor: '#6777ef',
+                                                    borderColor: '#6777ef',
+                                                    borderWidth: 2.5,
+                                                    pointBackgroundColor: '#ffffff',
+                                                    pointRadius: 4
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: true,
+                                                    position: 'bottom'
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        gridLines: {
+                                                            drawBorder: false,
+                                                            color: '#f2f2f2',
+                                                        },
+                                                        ticks: {
+                                                            beginAtZero: true,
+                                                            stepSize: 100
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        ticks: {
+                                                            display: false
+                                                        },
+                                                        gridLines: {
+                                                            display: false
+                                                        }
+                                                    }]
+                                                },
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
 
         </section>
@@ -113,7 +263,6 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
     <script>
         var dailyTotalsY = @json($dailyTotalsY);
         var dailyTotalsT = @json($dailyTotalsT);
@@ -123,7 +272,7 @@
         var formattedDates = sortedDates.map(function(date) {
             return moment(date).format('DD MMMM YYYY');
         });
-        var ctx = document.getElementById("myChart2").getContext('2d');
+        var ctx = document.getElementById("myChartImunization").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -179,7 +328,6 @@
         });
     </script>
 
-
     <script>
         var TotalsWeighingY = @json($TotalsWeighingY);
         var TotalsWeighingT = @json($TotalsWeighingT);
@@ -189,7 +337,7 @@
         var formattedDates = sortedDates.map(function(date) {
             return moment(date).format('DD MMMM YYYY');
         });
-        var ctx = document.getElementById("myChart3").getContext('2d');
+        var ctx = document.getElementById("myChartWeight").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {

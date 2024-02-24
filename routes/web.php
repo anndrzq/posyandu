@@ -6,11 +6,12 @@ use App\Http\Controllers\dashboard\ParentController;
 use App\Http\Controllers\dashboard\MidwifeController;
 use App\Http\Controllers\dashboard\OfficerController;
 use App\Http\Controllers\dashboard\ServiceController;
-use App\Http\Controllers\dashboard\DashboardController;
-use App\Http\Controllers\authentications\LoginController;
-use App\Http\Controllers\dashboard\SupplyController;
 use App\Http\Controllers\dashboard\VaccineController;
 use App\Http\Controllers\dashboard\VitaminsController;
+use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\dashboard\ComplaintsController;
+use App\Http\Controllers\authentications\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,5 +75,12 @@ Route::controller(ServiceController::class)->middleware('auth')->group(function 
     Route::post('child-immunization', 'ImmunizationStore')->name('store.Immunization');
 });
 
+// Data Imunisasi dan Penimbangan
 Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('auth');
 Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('auth');
+
+//Pengaduan Saya
+Route::resource('my-complaint', ComplaintsController::class)->middleware('auth');
+
+
+// Daftar Pengaduan Admin

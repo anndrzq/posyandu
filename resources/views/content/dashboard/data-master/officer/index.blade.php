@@ -55,7 +55,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($officers as $officer)
-                                                @if ($officer->users->first()->role == 'employee')
+                                                @if ($officer->users->first()->officer_id != null)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td class="user-name">
