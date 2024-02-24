@@ -97,7 +97,7 @@
         </section>
     </div>
     @foreach ($parents as $parent)
-        @if ($parent->users->first()->role == 'parents')
+        @if ($parent->users->first()->family_id != null)
             <div class="modal fade" id="exampleModal{{ $parent->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-xl" role="document">

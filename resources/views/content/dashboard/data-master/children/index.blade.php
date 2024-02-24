@@ -91,6 +91,78 @@
         </section>
     </div>
 
+    @foreach ($children as $child)
+        @if ($child->family_id != null)
+            <div class="modal fade" id="exampleModal{{ $child->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail Anak</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Single column layout -->
+                                    <dl class="row">
+
+                                        <dt class="col-sm-4">Nama Ibu</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->parent->mother_name ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Nama Ayah
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->parent->father_name ?? 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Nomor Induk Keluarga Anak
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->nik ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Nama Anak</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->name ?? 'N/A' }}</dd>
+
+                                        <dt class="col-sm-4">Tempat Lahir</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->place_of_birth_child ?? 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Tanggal Lahir</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->date_of_birth_child ? \Carbon\Carbon::parse($child->date_of_birth_child)->format('d F Y') : 'N/A' }}
+                                        </dd>
+
+                                        <dt class="col-sm-4">Jenis Kelamin</dt>
+                                        <dd class="col-sm-8">
+                                            @if ($child->gender == 'L')
+                                                :Laki - Laki
+                                            @else
+                                                :Perempuan
+                                            @endif
+
+                                        </dd>
+
+                                        <dt class="col-sm-4">Golongan Darah</dt>
+                                        <dd class="col-sm-8">
+                                            :{{ $child->blood_type_child ?? 'N/A' }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
 @endsection
 
 @push('scripts')
