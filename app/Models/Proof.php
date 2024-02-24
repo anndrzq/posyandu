@@ -12,6 +12,6 @@ class Proof extends Model
 
     public function complaints()
     {
-        return $this->belongsTo(Complaints::class, 'complaints_id');
+        return $this->belongsTo(Complaints::class, 'id_complaints');
     }
 }

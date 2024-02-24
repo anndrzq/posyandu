@@ -17,7 +17,7 @@ class Complaints extends Model
 
     public function proof()
     {
-        return $this->hasMany(Proof::class, 'complaints_id');
+        return $this->hasMany(Proof::class, 'id_complaints',  'id');
     }
 
     public function child()
