@@ -207,7 +207,7 @@
                     @if (Auth::user()->family_id != null)
                         Hi, {{ Auth::user()->family->mother_name }}
                     @elseif (Auth::user()->officer_id != null)
-                        Hi, {{ Auth::user()->officer->name }}
+                        Hi, {{ Auth::user()->officers->name }}
                     @elseif (Auth::user()->midwife_id != null)
                         Hi, Dr. {{ Auth::user()->midwife->name }}
                     @else

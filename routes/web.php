@@ -37,16 +37,22 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 // Data Master
 // 1. Data Keluarga
-Route::resource('parent-data', ParentController::class)->middleware('auth');
+Route::resource('parent-data', ParentController::class)->middleware('role:admin,employee');
 // 2. Data Anak
-Route::resource('children-data', ChildController::class)->middleware('auth');
+Route::resource('children-data', ChildController::class)->middleware('role:admin,employee');
 // 3. Data Petugas
-Route::resource('officer-data', OfficerController::class)->middleware('auth');
+Route::resource('officer-data', OfficerController::class)->middleware('role:admin,employee');
 // 4. Data Bidan
-Route::resource('midwife-data', MidwifeController::class)->middleware('auth');
+Route::resource('midwife-data', MidwifeController::class)->middleware('role:admin,employee');
+
+// Data Pelayanan
+// 1. Imunisasi
+Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('role:admin,employee');
+// 2. Penimbangan
+Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('role:admin,employee');
 
 // Persediaan Vaksin
-Route::controller(VaccineController::class)->middleware('auth')->group(function () {
+Route::controller(VaccineController::class)->middleware('role:admin,employee')->group(function () {
     Route::get('immunization', 'ImmunizationIndex');
     Route::post('immunization', 'ImmunizationStore')->name('immunization.store');
     Route::delete('immunization/{id}',  'ImmunizationDestroy')->name('immunization.destroy');
@@ -55,7 +61,7 @@ Route::controller(VaccineController::class)->middleware('auth')->group(function 
 });
 
 // Persediaan Vitamin A
-Route::controller(VitaminsController::class)->middleware('auth')->group(function () {
+Route::controller(VitaminsController::class)->middleware('role:admin,employee')->group(function () {
     Route::get('vitamins', 'VitaminsIndex');
     Route::post('vitamins', 'VitaminsStore')->name('vitamins.store');
     Route::delete('vitamins/{id}', 'VitaminsDestroy')->name('vitamins.destroy');
@@ -64,26 +70,22 @@ Route::controller(VitaminsController::class)->middleware('auth')->group(function
 });
 
 // Layanan Penimbangan Anak
-Route::controller(ServiceController::class)->middleware('auth')->group(function () {
+Route::controller(ServiceController::class)->middleware('role:admin,employee,midwife')->group(function () {
     Route::get('weighing-children', 'WeighingChild')->name('weighing.child');
     Route::post('weighing-children', 'StoreWeighing')->name('store.weighing');
 });
 
 // Layanan Imunisasi Anak
-Route::controller(ServiceController::class)->middleware('auth')->group(function () {
+Route::controller(ServiceController::class)->middleware('role:admin,employee,midwife')->group(function () {
     Route::get('child-immunization', 'ImmunizationChild')->name('Immunization');
     Route::post('child-immunization', 'ImmunizationStore')->name('store.Immunization');
 });
-
-// Data Imunisasi dan Penimbangan
-Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('auth');
-Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('auth');
 
 //Pengaduan Saya
 Route::resource('my-complaint', ComplaintsController::class)->middleware('auth');
 
 // Daftar Pengaduan Admin
-Route::controller(ComplaintsAdmin::class)->middleware('auth')->group(function () {
+Route::controller(ComplaintsAdmin::class)->middleware('role:admin,employee,midwife')->group(function () {
     Route::get('complaint-message', 'index');
     Route::get('complaint-message/{id}', 'show')->name('complaint.show');
     Route::put('complaint-message/{complaints}/process', 'process')->name('complaint.process');

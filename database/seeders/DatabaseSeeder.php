@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
         Child::create([
             'nik' => '1234567890123457',
-            'name' => 'Anak Pertama',
+            'name' => 'Pertama',
             'place_of_birth_child' => 'Tempat Lahir Anak',
             'date_of_birth_child' => '2020-01-01',
             'gender' => 'L',
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
 
         Child::create([
             'nik' => '1234567890123458',
-            'name' => 'Anak Kedua',
+            'name' => 'Kedua',
             'place_of_birth_child' => 'Tempat Lahir Anak',
             'date_of_birth_child' => '2022-01-01',
             'gender' => 'P',
@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'officer123',
             'password' => bcrypt('123123'),
             'officer_id' => 1,
-            'role' => 'parents'
+            'role' => 'employee'
         ]);
 
         Midwife::create([
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'midwife123',
             'password' => bcrypt('123123'),
             'midwife_id' => 1,
-            'role' => 'parents'
+            'role' => 'midwife'
         ]);
 
         Vaccine::create([
