@@ -34,13 +34,15 @@ class DashboardController extends Controller
         }
 
         $weighing = Weighing::whereIn('in_accordance', ['Y', 'T'])->get();
-        $groupedData = $weighing->groupBy('weigh_date');
+        $groupedWeighingData = $weighing->groupBy('weigh_date');
         $TotalsWeighingY = [];
         $TotalsWeighingT = [];
-        foreach ($groupedData as $data => $group) {
+
+        foreach ($groupedWeighingData as $date => $group) {
             $TotalsWeighingY[$date] = $group->where('in_accordance', 'Y')->count();
             $TotalsWeighingT[$date] = $group->where('in_accordance', 'T')->count();
         }
+
 
         $familyId = Auth::user()->family_id;
 

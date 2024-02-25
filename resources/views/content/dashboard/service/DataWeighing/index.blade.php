@@ -92,7 +92,7 @@
                                                         @if ($penimbangan->information == null)
                                                             Tidak Ada Keterangan
                                                         @else
-                                                            {{ $penimbangan->information }}
+                                                            {{ strip_tags($penimbangan->information) }}
                                                         @endif
                                                     </td>
                                                     <td>
@@ -105,7 +105,17 @@
                                                         @endif
                                                     </td>
 
-                                                    <td></td>
+                                                    <td>
+                                                        <form action="/DataWeighing/{{ $penimbangan->id }}" method="POST"
+                                                            id="delete-form-{{ $penimbangan->id }}" class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-1 btn-action del">
+                                                                <i class="fas fa-trash"></i> Batalkan
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -297,7 +297,7 @@
                     $('.stock-vaccine-section').hide();
                     $('.vitamin-section').hide();
                     $('.stock-vitamin-section').hide();
-                    $('.keterangan-section').hide();
+                    $('.keterangan-section').show();
                 }
             });
 

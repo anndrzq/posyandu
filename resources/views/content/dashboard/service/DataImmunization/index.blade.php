@@ -92,7 +92,7 @@
                                                         @if ($imunisasi->vitamins_id == null)
                                                             Belum Di Beri Vitamin
                                                         @else
-                                                            {{ $imunisasi->vaccine->vaccine_name }}
+                                                            {{ $imunisasi->vitamins->vitamins_name }}
                                                         @endif
                                                     </td>
 
@@ -100,7 +100,7 @@
                                                         @if ($imunisasi->information == null)
                                                             Tidak Ada Keterangan
                                                         @else
-                                                            {{ $imunisasi->information }}
+                                                            {{ strip_tags($imunisasi->information) }}
                                                         @endif
                                                     </td>
                                                     <td>
@@ -112,7 +112,19 @@
                                                             Tidak Di Ketahui
                                                         @endif
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+
+                                                        <form action="/DataImmunization/{{ $imunisasi->id }}"
+                                                            method="POST" id="delete-form-{{ $imunisasi->id }}"
+                                                            class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-danger mr-1 btn-action del">
+                                                                <i class="fas fa-trash"></i> Batalkan
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

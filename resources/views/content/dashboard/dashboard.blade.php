@@ -25,7 +25,6 @@
             </div>
 
             @if (auth()->check() && auth()->user()->role != 'parents')
-
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="card card-statistic-1">
@@ -127,81 +126,82 @@
                     </div>
 
                 </div>
+            @endif
 
-                <div class="row">
-                    @if (count($childData) > 0)
-                        @foreach ($childData as $key => $child)
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Berat Badan - Anak {{ $child->name }}</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <canvas id="myChart{{ $key + 1 }}"></canvas>
-                                        <script>
-                                            var ctx = document.getElementById("myChart{{ $key + 1 }}").getContext('2d');
-                                            var myChart = new Chart(ctx, {
-                                                type: 'line',
-                                                data: {
-                                                    labels: [
+            <div class="row">
+                @if (count($childData) > 0)
+                    @foreach ($childData as $key => $child)
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Berat Badan - Anak {{ $child->name }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myChart{{ $key + 1 }}"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("myChart{{ $key + 1 }}").getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: [
+                                                    @foreach ($weighingData as $data)
+                                                        @if ($data->child_id == $child->id)
+                                                            "{{ $data->weigh_date }}",
+                                                        @endif
+                                                    @endforeach
+                                                ],
+                                                datasets: [{
+                                                    label: 'Berat Badan',
+                                                    data: [
                                                         @foreach ($weighingData as $data)
                                                             @if ($data->child_id == $child->id)
-                                                                "{{ $data->weigh_date }}",
+                                                                {{ $data->body_weight }},
                                                             @endif
                                                         @endforeach
                                                     ],
-                                                    datasets: [{
-                                                        label: 'Berat Badan',
-                                                        data: [
-                                                            @foreach ($weighingData as $data)
-                                                                @if ($data->child_id == $child->id)
-                                                                    {{ $data->body_weight }},
-                                                                @endif
-                                                            @endforeach
-                                                        ],
-                                                        borderWidth: 2,
-                                                        backgroundColor: '#6777ef',
-                                                        borderColor: '#6777ef',
-                                                        borderWidth: 2.5,
-                                                        pointBackgroundColor: '#ffffff',
-                                                        pointRadius: 4
+                                                    borderWidth: 2,
+                                                    backgroundColor: '#6777ef',
+                                                    borderColor: '#6777ef',
+                                                    borderWidth: 2.5,
+                                                    pointBackgroundColor: '#ffffff',
+                                                    pointRadius: 4
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: true,
+                                                    position: 'bottom'
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        gridLines: {
+                                                            drawBorder: false,
+                                                            color: '#f2f2f2',
+                                                        },
+                                                        ticks: {
+                                                            beginAtZero: true,
+                                                            stepSize: 10
+                                                        }
+                                                    }],
+                                                    xAxes: [{
+                                                        ticks: {
+                                                            display: false
+                                                        },
+                                                        gridLines: {
+                                                            display: false
+                                                        }
                                                     }]
                                                 },
-                                                options: {
-                                                    legend: {
-                                                        display: true,
-                                                        position: 'bottom'
-                                                    },
-                                                    scales: {
-                                                        yAxes: [{
-                                                            gridLines: {
-                                                                drawBorder: false,
-                                                                color: '#f2f2f2',
-                                                            },
-                                                            ticks: {
-                                                                beginAtZero: true,
-                                                                stepSize: 10
-                                                            }
-                                                        }],
-                                                        xAxes: [{
-                                                            ticks: {
-                                                                display: false
-                                                            },
-                                                            gridLines: {
-                                                                display: false
-                                                            }
-                                                        }]
-                                                    },
-                                                }
-                                            });
-                                        </script>
-                                    </div>
+                                            }
+                                        });
+                                    </script>
                                 </div>
                             </div>
-                        @endforeach
-                    @endif
-                </div>
-            @endif
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+
             <div class="row">
                 @if (count($childData) > 0)
                     @foreach ($childData as $key => $child)

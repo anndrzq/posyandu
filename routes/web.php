@@ -47,9 +47,11 @@ Route::resource('midwife-data', MidwifeController::class)->middleware('role:admi
 
 // Data Pelayanan
 // 1. Imunisasi
-Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('role:admin,employee');
+Route::get('DataImmunization', [ServiceController::class, 'DataImmunizationIndex'])->middleware('role:admin,employee,midwife');
+Route::delete('DataImmunization/{id}', [ServiceController::class, 'destroy']);
 // 2. Penimbangan
-Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('role:admin,employee');
+Route::get('DataWeighing', [ServiceController::class, 'DataWeighing'])->middleware('role:admin,employee,midwife');
+Route::delete('DataWeighing/{id}', [ServiceController::class, 'DestroyDataWeighing']);
 
 // Persediaan Vaksin
 Route::controller(VaccineController::class)->middleware('role:admin,employee')->group(function () {

@@ -97,6 +97,38 @@ class ServiceController extends Controller
         return redirect('DataImmunization')->with('success', 'Data immunisasi berhasil disimpan');
     }
 
+    public function destroy($id)
+    {
+        $immunization = Immunization::findOrFail($id);
+
+        if (!$immunization) {
+            return redirect()->back()->with('error', 'Data Imunisasi Tidak Ada');
+        }
+
+        $vaccine = $immunization->vaccine;
+        $vitamins = $immunization->vitamins;
+
+        if ($vaccine) {
+            $vaccine->stock++;
+            $vaccine->save();
+        }
+
+        if ($vitamins) {
+            $vitamins->stock++;
+            $vitamins->save();
+        }
+        $immunization->delete();
+
+        return redirect()->back()->with('success', 'Imunisasi Berhasil Di Hapus');
+    }
+
+    public function DestroyDataWeighing($id)
+    {
+        $weighing = Weighing::findOrFail($id);
+        $weighing->delete();
+        return back()->with('success', 'Berhasil Menghapus Data Penimbangan');
+    }
+
     public function DataImmunizationIndex()
     {
         $immunizations = Immunization::all();
