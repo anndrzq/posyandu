@@ -14,8 +14,10 @@ class ComplaintsController extends Controller
 {
     public function index()
     {
+        $getuser = Auth::user()->id;
         $regardingComplaints = Complaints::all();
-        return view('content.dashboard.complaints.index', compact('regardingComplaints'));
+        $regardings = Complaints::where('user_id', $getuser)->get();
+        return view('content.dashboard.complaints.index', compact('regardings'));
     }
 
     public function create()

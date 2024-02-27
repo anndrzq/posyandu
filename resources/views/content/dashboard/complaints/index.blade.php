@@ -48,7 +48,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($regardingComplaints as $regarding)
+                                            @foreach ($regardings as $regarding)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $regarding->regarding }}</td>
